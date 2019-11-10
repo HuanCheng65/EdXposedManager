@@ -412,6 +412,6 @@
     <string name="huanchengfly">huanchengfly</string>
     <string name="wearefun">WeAreFun</string>
     <string name="wearefun_summary">The design guide of the beautify interface</string>
-    <string name="beautify_version">0.0.1</string>
+    <string name="beautify_version">0.0.2</string>
     <string name="about_beautify_version_label">Beautify Version</string>
 </resources>

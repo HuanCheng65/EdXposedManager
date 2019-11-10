@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -60,6 +59,8 @@
                     android:layout_marginEnd="4dip"
                     android:layout_weight="1"
                     android:singleLine="false"
+                    android:textStyle="bold"
+                    android:textColor="?android:textColorPrimary"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textIsSelectable="false" />
 
@@ -74,7 +75,7 @@
                     android:maxWidth="100dp"
                     android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textColor="?android:textColorSecondary"
                     android:textIsSelectable="false"
                     tools:ignore="RtlHardcoded" />
 
@@ -86,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:textColor="?android:textColorPrimary"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textIsSelectable="false" />
 
@@ -97,18 +99,18 @@
                     android:id="@+id/tvTitleInstallTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:textColor="?android:textColorSecondary"
                     android:text="@string/install_time" />
 
                 <TextView
                     android:id="@+id/tvInstallTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
                     android:layout_marginStart="4dip"
                     android:ellipsize="marquee"
                     android:gravity="end"
                     android:marqueeRepeatLimit="marquee_forever"
+                    android:textColor="?android:textColorSecondary"
                     tools:ignore="RtlHardcoded" />
 
             </LinearLayout>
@@ -121,14 +123,14 @@
                     android:id="@+id/tvTitleUpdateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:textColor="?android:textColorSecondary"
                     android:text="@string/update_time" />
 
                 <TextView
                     android:id="@+id/tvUpdateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
+                    android:textColor="?android:textColorSecondary"
                     android:layout_marginStart="4dip"
                     android:ellipsize="marquee"
                     android:gravity="end"
@@ -147,6 +149,7 @@
             android:layout_marginEnd="5dp"
             android:checked="false"
             android:focusable="false"
+            style="@style/Widget.Switch"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/app_name"

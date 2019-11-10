@@ -44,6 +44,7 @@
                     android:id="@+id/txtVersion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="?android:textColorPrimary"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textIsSelectable="false" />
             </LinearLayout>
@@ -61,18 +62,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAllCaps="true"
+                    android:textColor="?android:textColorSecondary"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textIsSelectable="false"
-                    android:textStyle="italic" />
+                    android:textIsSelectable="false" />
 
                 <TextView
                     android:id="@+id/txtUploadDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorTertiary"
                     android:textIsSelectable="false"
-                    android:textStyle="italic" />
+                    android:textColor="?android:textColorSecondary" />
             </LinearLayout>
         </LinearLayout>
 
@@ -87,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/changes"
+            android:textColor="?android:textColorSecondary"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold" />
 
@@ -94,6 +95,7 @@
             android:id="@+id/txtChanges"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?android:textColorSecondary"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>

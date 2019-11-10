@@ -1,6 +1,5 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,13 +11,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:textColor="?android:textColorSecondary"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <com.google.android.material.button.MaterialButton
-            android:textColor="?android:attr/textColorPrimaryInverse"
-            app:backgroundTint="?attr/colorAccent"
-            app:cornerRadius="@dimen/card_corner_radius"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            style="@style/Widget.Button.Dense"
             android:id="@+id/btnDownload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,9 +23,7 @@
             android:text="@string/download_view_download" />
 
         <com.google.android.material.button.MaterialButton
-            android:textColor="?attr/colorAccent"
-            app:cornerRadius="@dimen/card_corner_radius"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            style="@style/Widget.Button.Flat.Dense"
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,9 +31,7 @@
             android:text="@string/save" />
 
         <com.google.android.material.button.MaterialButton
-            android:textColor="?attr/colorAccent"
-            app:cornerRadius="@dimen/card_corner_radius"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            style="@style/Widget.Button.Flat.Dense"
             android:id="@+id/btnDownloadCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,10 +41,7 @@
             tools:ignore="ButtonOrder" />
 
         <com.google.android.material.button.MaterialButton
-            android:textColor="?android:attr/textColorPrimaryInverse"
-            app:backgroundTint="?attr/colorAccent"
-            app:cornerRadius="@dimen/card_corner_radius"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            style="@style/Widget.Button.Dense"
             android:id="@+id/btnInstall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

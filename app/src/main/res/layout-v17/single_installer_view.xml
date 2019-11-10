@@ -158,10 +158,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <com.google.android.material.button.MaterialButton
-                        android:textColor="?android:attr/textColorPrimaryInverse"
-                        app:backgroundTint="?attr/colorAccent"
-                        app:cornerRadius="@dimen/card_corner_radius"
-                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        style="@style/Widget.Button.Dense"
                         android:id="@+id/btnInstall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -202,16 +199,13 @@
                         tools:ignore="ContentDescription,RtlHardcoded" />
 
                     <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.Button.Dense"
                         android:id="@+id/btnUninstall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/chooserUninstallers"
                         android:layout_alignEnd="@+id/infoUninstaller"
                         android:layout_alignRight="@+id/infoUninstaller"
-                        android:textColor="?android:attr/textColorPrimaryInverse"
-                        app:backgroundTint="?attr/colorAccent"
-                        app:cornerRadius="@dimen/card_corner_radius"
-                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                         android:text="@string/uninstall"
                         tools:ignore="RtlHardcoded" />
 
