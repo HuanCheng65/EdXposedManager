@@ -5,10 +5,11 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="6dp"
     android:layout_marginBottom="3dp"
-    android:elevation="2dp"
+    android:elevation="0dp"
     android:foreground="?selectableItemBackground"
     card_view:cardBackgroundColor="?attr/list_download_item_color"
     card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="0dp"
     card_view:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -22,12 +23,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?android:textColorPrimary"
             android:textStyle="bold" />
 
         <TextView
             android:id="@android:id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="?android:textColorSecondary"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>

@@ -9,6 +9,16 @@
     <attr name="sticky_header_background" format="reference|color" />
     <attr name="list_download_item_color" format="reference|color" />
 
+    <declare-styleable name="Theme">
+        <attr name="color_app_bar" format="color" />
+        <attr name="color_bottom_nav" format="color" />
+        <attr name="color_app_bar_item" format="color" />
+        <attr name="color_unselected" format="color" />
+        <attr name="color_icon" format="color" />
+        <attr name="color_card" format="color" />
+        <attr name="color_divider" format="color" />
+    </declare-styleable>
+
     <declare-styleable name="IconListPreference">
         <attr name="icons" format="reference" />
     </declare-styleable>

@@ -4,24 +4,12 @@
         android:id="@+id/main_items"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/drawer_item_1"
-            android:icon="@drawable/ic_nav_install"
-            android:title="@string/nav_item_install" />
-        <item
-            android:id="@+id/drawer_item_2"
-            android:icon="@drawable/ic_nav_modules"
-            android:title="@string/nav_item_modules" />
-        <item
-            android:id="@+id/drawer_item_3"
-            android:icon="@drawable/ic_nav_downloads"
-            android:title="@string/nav_item_download" />
-        <item
             android:id="@+id/nav_black_list"
             android:icon="@drawable/ic_format_list_bulleted"
             android:title="@string/nav_title_black_list" />
         <item
             android:id="@+id/nav_compat_list"
-            android:icon="@drawable/ic_local_hospital"
+            android:icon="@drawable/ic_two_tone_local_hospital"
             android:title="@string/nav_title_compat_list" />
     </group>
     <group
@@ -41,15 +29,15 @@
         android:checkableBehavior="all">
         <item
             android:id="@+id/drawer_item_5"
-            android:icon="@drawable/ic_nav_settings"
+            android:icon="@drawable/ic_two_tone_settings_applications"
             android:title="@string/nav_item_settings" />
         <item
             android:id="@+id/drawer_item_6"
-            android:icon="@drawable/ic_nav_support"
+            android:icon="@drawable/ic_two_tone_help"
             android:title="@string/nav_item_support" />
         <item
             android:id="@+id/drawer_item_7"
-            android:icon="@drawable/ic_nav_about"
+            android:icon="@drawable/ic_two_tone_info"
             android:title="@string/nav_item_about" />
     </group>
 </menu>

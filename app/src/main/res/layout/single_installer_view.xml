@@ -63,7 +63,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center"
                         android:padding="5dp"
-                        android:src="@drawable/ic_info"
+                        android:src="@drawable/ic_two_tone_info"
                         tools:ignore="ContentDescription,RtlHardcoded" />
 
                     <androidx.cardview.widget.CardView
@@ -179,7 +179,7 @@
                         android:layout_gravity="center|end"
                         android:layout_marginTop="5dp"
                         android:padding="5dp"
-                        android:src="@drawable/ic_info"
+                        android:src="@drawable/ic_two_tone_info"
                         tools:ignore="ContentDescription,RtlHardcoded" />
 
                     <Button
@@ -253,7 +253,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_help"
+                        android:src="@drawable/ic_two_tone_help"
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout
@@ -291,9 +291,10 @@
                     android:focusable="true">
 
                     <ImageView
+                        android:tint="?attr/color_icon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_description"
+                        android:src="@drawable/ic_two_tone_description"
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout

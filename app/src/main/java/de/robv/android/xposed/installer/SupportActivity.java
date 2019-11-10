@@ -1,6 +1,5 @@
 package de.robv.android.xposed.installer;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +14,6 @@ import org.meowcat.edxposed.manager.R;
 
 import de.robv.android.xposed.installer.util.NavUtil;
 import de.robv.android.xposed.installer.util.ThemeUtil;
-
-import static de.robv.android.xposed.installer.XposedApp.darkenColor;
 
 public class SupportActivity extends XposedBaseActivity {
     @Override
@@ -57,8 +54,6 @@ public class SupportActivity extends XposedBaseActivity {
         @Override
         public void onResume() {
             super.onResume();
-            if (Build.VERSION.SDK_INT >= 21)
-                getActivity().getWindow().setStatusBarColor(darkenColor(XposedApp.getColor(getActivity()), 0.85f));
         }
 
         @Override

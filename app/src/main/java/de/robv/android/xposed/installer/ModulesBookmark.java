@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -47,7 +46,6 @@ import de.robv.android.xposed.installer.util.RepoLoader;
 import de.robv.android.xposed.installer.util.ThemeUtil;
 
 import static de.robv.android.xposed.installer.XposedApp.WRITE_EXTERNAL_PERMISSION;
-import static de.robv.android.xposed.installer.XposedApp.darkenColor;
 
 public class ModulesBookmark extends XposedBaseActivity {
 
@@ -112,9 +110,11 @@ public class ModulesBookmark extends XposedBaseActivity {
             if (changed)
                 getModules();
 
+            /*
             if (Build.VERSION.SDK_INT >= 21) {
                 getActivity().getWindow().setStatusBarColor(darkenColor(XposedApp.getColor(getActivity()), 0.85f));
             }
+            */
         }
 
         @Override

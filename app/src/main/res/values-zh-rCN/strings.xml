@@ -12,7 +12,7 @@
     <string name="welcome_framework_update_available">EdXposed 框架有更新可用（%s）。</string>
 
     <!-- navigation view items -->
-    <string name="nav_item_install">框架</string>
+    <string name="nav_item_install">首页</string>
     <string name="nav_item_modules">模块</string>
     <string name="nav_item_download">下载</string>
     <string name="nav_item_settings">设置</string>
@@ -20,8 +20,6 @@
     <string name="nav_item_logs">详细日志</string>
     <string name="nav_item_logs_err">模块日志</string>
     <string name="nav_item_about">关于</string>
-    <string name="navigation_drawer_open">开启导航抽屉栏</string>
-    <string name="navigation_drawer_close">关闭导航抽屉栏</string>
 
     <!-- Installer tab -->
     <string name="install">安装/更新</string>
@@ -375,4 +373,10 @@
     <string name="hook_modules_summary">强制将模块添加进白名单并移出黑名单.\n关闭此选项并不会移除已勾选的应用标识.</string>
     <string name="custom_list">使用自定义模块列表</string>
     <string name="custom_list_summ">镜像化的模块列表可以帮助加速加载\n但是新提交的模块显示会有延迟（大约24小时）</string>
+    <string name="title_my_info">我的设备</string>
+    <string name="title_home">首页</string>
+    <string name="huanchengfly_summary">美化作者</string>
+    <string name="wearefun_summary">UI 设计指导</string>
+    <string name="huanchengfly">幻了个城fly</string>
+    <string name="about_beautify_version_label">美化版本</string>
 </resources>

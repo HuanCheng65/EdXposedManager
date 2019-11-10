@@ -24,7 +24,7 @@ public class BootReceiver extends BroadcastReceiver {
             public void run() {
                 if (!isOnline(context)) return;
 
-                new CheckUpdates().execute();
+                //new CheckUpdates().execute();
             }
         }, 60 * 60 * 1000 /*60 min*/);
     }

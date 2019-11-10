@@ -3,7 +3,6 @@ package de.robv.android.xposed.installer;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -15,10 +14,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.meowcat.edxposed.manager.R;
 
@@ -34,7 +32,6 @@ import de.robv.android.xposed.installer.util.ThemeUtil;
 
 import static android.content.Intent.ACTION_SEND;
 import static android.content.Intent.EXTRA_TEXT;
-import static de.robv.android.xposed.installer.XposedApp.darkenColor;
 
 public class AboutActivity extends XposedBaseActivity {
 
@@ -92,8 +89,6 @@ public class AboutActivity extends XposedBaseActivity {
         @Override
         public void onResume() {
             super.onResume();
-            if (Build.VERSION.SDK_INT >= 21)
-                Objects.requireNonNull(getActivity()).getWindow().setStatusBarColor(darkenColor(XposedApp.getColor(getActivity()), 0.85f));
         }
 
         @Override
@@ -115,10 +110,11 @@ public class AboutActivity extends XposedBaseActivity {
             if (changes == null) {
                 changelogView.setVisibility(View.GONE);
             } else {
-                changelogView.setOnClickListener(v1 -> new MaterialDialog.Builder(getContext())
-                        .title(R.string.changes)
-                        .content(Html.fromHtml(changes))
-                        .positiveText(android.R.string.ok).show());
+                changelogView.setOnClickListener(v1 -> new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.changes)
+                        .setMessage(Html.fromHtml(changes))
+                        .setPositiveButton(R.string.update, null)
+                        .show());
             }
 
             try {

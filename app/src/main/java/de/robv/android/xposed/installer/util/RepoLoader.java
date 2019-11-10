@@ -12,11 +12,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.meowcat.edxposed.manager.R;
 
@@ -376,24 +373,20 @@ public class RepoLoader {
                 XposedApp.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        new MaterialDialog.Builder(DownloadFragment.sActivity)
-                                .title(R.string.restart_needed)
-                                .content(R.string.cache_cleaned)
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        Intent i = new Intent(DownloadFragment.sActivity, WelcomeActivity.class);
-                                        i.putExtra("fragment", 2);
+                        new AlertDialog.Builder(DownloadFragment.sActivity)
+                                .setTitle(R.string.restart_needed)
+                                .setMessage(R.string.cache_cleaned)
+                                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                                    Intent i = new Intent(DownloadFragment.sActivity, WelcomeActivity.class);
+                                    i.putExtra("fragment", 2);
 
-                                        PendingIntent pi = PendingIntent.getActivity(DownloadFragment.sActivity, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
+                                    PendingIntent pi = PendingIntent.getActivity(DownloadFragment.sActivity, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
 
-                                        AlarmManager mgr = (AlarmManager) mApp.getSystemService(Context.ALARM_SERVICE);
-                                        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pi);
-                                        System.exit(0);
-                                    }
+                                    AlarmManager mgr = (AlarmManager) mApp.getSystemService(Context.ALARM_SERVICE);
+                                    mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pi);
+                                    System.exit(0);
                                 })
-                                .positiveText(android.R.string.ok)
-                                .canceledOnTouchOutside(false)
+                                .setCancelable(false)
                                 .show();
                     }
                 });

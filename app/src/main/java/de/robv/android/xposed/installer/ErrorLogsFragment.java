@@ -2,6 +2,7 @@ package de.robv.android.xposed.installer;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -81,19 +83,19 @@ public class ErrorLogsFragment extends Fragment {
             TextView message = dontShowAgainView.findViewById(android.R.id.message);
             message.setText(R.string.not_logcat);
 
-            new MaterialDialog.Builder(Objects.requireNonNull(getActivity()))
-                    .title(R.string.install_warning_title)
-                    .customView(dontShowAgainView, false)
-                    .positiveText(android.R.string.ok)
-                    .callback(new MaterialDialog.ButtonCallback() {
+            new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                    .setTitle(R.string.install_warning_title)
+                    .setView(dontShowAgainView)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
+                        public void onClick(DialogInterface dialog, int which) {
                             CheckBox checkBox = dontShowAgainView.findViewById(android.R.id.checkbox);
                             if (checkBox.isChecked())
                                 XposedApp.getPreferences().edit().putBoolean("hide_logcat_warning", true).apply();
                         }
-                    }).cancelable(false).show();
+                    })
+                    .setCancelable(false)
+                    .show();
         }
         enableLogAccess();
         return v;

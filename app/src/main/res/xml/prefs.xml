@@ -13,7 +13,7 @@
             android:key="install_mode"
             android:summary="%s"
             android:title="@string/settings_install_mode"
-            app:useStockLayout="true"/>
+          />
 
     </PreferenceCategory-->
 
@@ -28,8 +28,7 @@
             android:entryValues="@array/release_type_values"
             android:key="release_type_global"
             android:summary="%s"
-            android:title="@string/settings_release_type"
-            app:useStockLayout="true" />
+            android:title="@string/settings_release_type" />
 
     </PreferenceCategory>
 
@@ -54,12 +53,11 @@
             android:entryValues="@array/theme_values"
             android:key="theme"
             android:summary="%s"
-            android:title="@string/settings_theme"
-            app:useStockLayout="true" />
+            android:title="@string/settings_theme" />
 
-        <Preference
+        <!--<Preference
             android:key="colors"
-            android:title="@string/choose_color" />
+            android:title="@string/choose_color" />-->
 
         <SwitchPreference
             android:defaultValue="false"
@@ -107,8 +105,7 @@
             android:entryValues="@array/list_sort_values"
             android:key="list_sort"
             android:summary="%s"
-            android:title="@string/list_sort"
-            app:useStockLayout="true" />
+            android:title="@string/list_sort" />
 
     </PreferenceCategory>
 
@@ -150,8 +147,7 @@
             android:entryValues="@array/default_view_values"
             android:key="default_view"
             android:summary="%s"
-            android:title="@string/settings_default_view"
-            app:useStockLayout="true" />
+            android:title="@string/settings_default_view" />
 
         <SwitchPreference
             android:key="open_drawer"

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -34,7 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.PopupMenu;
@@ -42,7 +44,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import com.afollestad.materialdialogs.MaterialDialog;
+import com.huanchengfly.edxp.interfaces.ButtonCallback;
 import com.solohsu.android.edxp.manager.util.Utils;
 
 import org.meowcat.edxposed.manager.R;
@@ -214,6 +216,9 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+
         filter = new ApplicationFilter();
         mModuleUtil = ModuleUtil.getInstance();
         mPm = Objects.requireNonNull(getActivity()).getPackageManager();
@@ -243,22 +248,22 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
         reloadModules.run();
         getListView().setAdapter(mAdapter);
         mModuleUtil.addListener(this);
-        ActionBar actionBar = ((WelcomeActivity) Objects.requireNonNull(getActivity())).getSupportActionBar();
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         int sixDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, metrics);
+        /*
         int eightDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, metrics);
+        ActionBar actionBar = ((WelcomeActivity) Objects.requireNonNull(getActivity())).getSupportActionBar();
         assert actionBar != null;
         int toolBarDp = actionBar.getHeight() == 0 ? 196 : actionBar.getHeight();
+        */
 
         getListView().setDivider(null);
         getListView().setDividerHeight(sixDp);
-        getListView().setPadding(eightDp, toolBarDp + eightDp, eightDp, eightDp);
-        getListView().setClipToPadding(false);
+        //getListView().setPadding(eightDp, toolBarDp + eightDp, eightDp, eightDp);
+        //getListView().setClipToPadding(false);
         getListView().setOnItemClickListener(this);
         getListView().setEmptyView(mBackgroundList);
-
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -315,12 +320,14 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
         }
     }
 
-    private void areYouSure(int contentTextId, MaterialDialog.ButtonCallback yesHandler) {
-        new MaterialDialog.Builder(Objects.requireNonNull(getActivity())).title(R.string.areyousure)
-                .content(contentTextId)
-                .iconAttr(android.R.attr.alertDialogIcon)
-                .positiveText(android.R.string.yes)
-                .negativeText(android.R.string.no).callback(yesHandler).show();
+    private void areYouSure(int contentTextId, ButtonCallback yesHandler) {
+        new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                .setTitle(R.string.areyousure)
+                .setMessage(contentTextId)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> yesHandler.onPositive(dialog))
+                .setNegativeButton(android.R.string.no, (dialog, which) -> yesHandler.onNegative(dialog))
+                .show();
     }
 
     private boolean startShell() {
@@ -365,14 +372,17 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
         AssetUtil.removeBusybox();
     }
 
+    public static final String TAG = "Modules";
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.i(TAG, "onOptionsItemSelected: ");
         switch (item.getItemId()) {
             case R.id.reboot:
                 if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
-                    areYouSure(R.string.reboot, new MaterialDialog.ButtonCallback() {
+                    areYouSure(R.string.reboot, new ButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
+                        public void onPositive(DialogInterface dialog) {
                             super.onPositive(dialog);
                             reboot(null);
                         }
@@ -383,10 +393,9 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
                 break;
             case R.id.soft_reboot:
                 if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
-                    areYouSure(R.string.soft_reboot, new MaterialDialog.ButtonCallback() {
+                    areYouSure(R.string.soft_reboot, new ButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
+                        public void onPositive(DialogInterface dialog) {
                             softReboot();
                         }
                     });
@@ -396,10 +405,9 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
                 break;
             case R.id.reboot_recovery:
                 if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
-                    areYouSure(R.string.reboot_recovery, new MaterialDialog.ButtonCallback() {
+                    areYouSure(R.string.reboot_recovery, new ButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
+                        public void onPositive(DialogInterface dialog) {
                             reboot("recovery");
                         }
                     });
@@ -409,10 +417,9 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
                 break;
             case R.id.reboot_bootloader:
                 if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
-                    areYouSure(R.string.reboot_bootloader, new MaterialDialog.ButtonCallback() {
+                    areYouSure(R.string.reboot_bootloader, new ButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
+                        public void onPositive(DialogInterface dialog) {
                             reboot("bootloader");
                         }
                     });
@@ -422,10 +429,9 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
                 break;
             case R.id.reboot_download:
                 if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
-                    areYouSure(R.string.reboot_download, new MaterialDialog.ButtonCallback() {
+                    areYouSure(R.string.reboot_download, new ButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
+                        public void onPositive(DialogInterface dialog) {
                             reboot("download");
                         }
                     });
@@ -594,15 +600,15 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
     }
 
     private void showAlert(final String result) {
-        MaterialDialog dialog = new MaterialDialog.Builder(Objects.requireNonNull(getActivity())).content(result).positiveText(android.R.string.ok).build();
-        dialog.show();
-
-        TextView txtMessage = (TextView) dialog
-                .findViewById(android.R.id.message);
-        try {
-            txtMessage.setTextSize(14);
-        } catch (NullPointerException ignored) {
+        if (Looper.myLooper() != Looper.getMainLooper()) {
+            Objects.requireNonNull(getActivity()).runOnUiThread(() -> showAlert(result));
+            return;
         }
+
+        new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                .setMessage(result)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     @Override

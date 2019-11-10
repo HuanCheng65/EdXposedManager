@@ -12,9 +12,8 @@ import android.text.util.Linkify;
 
 import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.browser.customtabs.CustomTabsIntent;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import de.robv.android.xposed.installer.XposedApp;
 
@@ -54,9 +53,9 @@ public final class NavUtil {
         XposedApp.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                new MaterialDialog.Builder(context)
-                        .content(message)
-                        .positiveText(android.R.string.ok)
+                new AlertDialog.Builder(context)
+                        .setMessage(message)
+                        .setPositiveButton(android.R.string.ok, null)
                         .show();
             }
         });

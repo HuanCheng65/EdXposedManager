@@ -20,10 +20,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.meowcat.edxposed.manager.R;
@@ -52,6 +53,7 @@ public class StatusInstallerFragment extends Fragment {
     private static Activity sActivity;
     private static String mUpdateLink;
     private static ImageView mErrorIcon;
+    private static CardView mErrorCard;
     private static View mUpdateView;
     private static View mUpdateButton;
     private static TextView mErrorTv;
@@ -64,14 +66,15 @@ public class StatusInstallerFragment extends Fragment {
             return;
         }
 
+        mErrorCard.setVisibility(View.VISIBLE);
         mErrorTv.setVisibility(View.VISIBLE);
         mErrorIcon.setVisibility(View.VISIBLE);
         if (noSdks) {
-            mErrorIcon.setImageDrawable(sActivity.getResources().getDrawable(R.drawable.ic_warning_grey));
+            mErrorIcon.setImageDrawable(sActivity.getResources().getDrawable(R.drawable.ic_two_tone_warning));
             mErrorTv.setText(String.format(sActivity.getString(R.string.phone_not_compatible), Build.VERSION.SDK_INT, Build.CPU_ABI));
         }
         if (connectionFailed) {
-            mErrorIcon.setImageDrawable(sActivity.getResources().getDrawable(R.drawable.ic_no_connection));
+            mErrorIcon.setImageDrawable(sActivity.getResources().getDrawable(R.drawable.ic_signal_cellular_connected_no_internet_4_bar));
             mErrorTv.setText(sActivity.getString(R.string.loadingError));
         }
     }
@@ -79,14 +82,14 @@ public class StatusInstallerFragment extends Fragment {
     static void setUpdate(final String link, final String changelog, Context mContext) {
         mUpdateLink = link;
 
-        mUpdateView.setVisibility(View.VISIBLE);
+        //mUpdateView.setVisibility(View.VISIBLE);
         mUpdateButton.setVisibility(View.VISIBLE);
-        mUpdateButton.setOnClickListener(v -> new MaterialDialog.Builder(sActivity)
-                .title(R.string.changes)
-                .content(Html.fromHtml(changelog))
-                .onPositive((dialog, which) -> update(mContext))
-                .positiveText(R.string.update)
-                .negativeText(R.string.later).show());
+        mUpdateButton.setOnClickListener(v -> new AlertDialog.Builder(sActivity)
+                .setTitle(R.string.changes)
+                .setMessage(Html.fromHtml(changelog))
+                .setPositiveButton(R.string.update, (dialog, which) -> update(mContext))
+                .setNegativeButton(R.string.later, null)
+                .show());
     }
 
     private static void update(Context mContext) {
@@ -204,6 +207,7 @@ public class StatusInstallerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.status_installer, container, false);
 
+        mErrorCard = v.findViewById(R.id.errorCard);
         mErrorIcon = v.findViewById(R.id.errorIcon);
         mErrorTv = v.findViewById(R.id.errorTv);
         mUpdateView = v.findViewById(R.id.updateView);
@@ -234,19 +238,19 @@ public class StatusInstallerFragment extends Fragment {
                 int installedXposedVersionInt = extractIntPart(installedXposedVersion);
                 if (installedXposedVersionInt == XposedApp.getXposedVersion()) {
                     txtInstallError.setText(sActivity.getString(R.string.installed_lollipop, installedXposedVersion));
-                    txtInstallError.setTextColor(sActivity.getResources().getColor(R.color.darker_green));
-                    txtInstallContainer.setBackgroundColor(sActivity.getResources().getColor(R.color.darker_green));
+                    //txtInstallError.setTextColor(sActivity.getResources().getColor(R.color.darker_green));
+                    txtInstallContainer.setBackgroundColor(XposedApp.getColor(sActivity));
                     txtInstallIcon.setImageDrawable(sActivity.getResources().getDrawable(R.drawable.ic_check_circle));
                     isXposedInstalled = true;
                 } else {
                     txtInstallError.setText(sActivity.getString(R.string.installed_lollipop_inactive, installedXposedVersion));
-                    txtInstallError.setTextColor(sActivity.getResources().getColor(R.color.amber_500));
+                    //txtInstallError.setTextColor(sActivity.getResources().getColor(R.color.amber_500));
                     txtInstallContainer.setBackgroundColor(sActivity.getResources().getColor(R.color.amber_500));
                     txtInstallIcon.setImageDrawable(sActivity.getResources().getDrawable(R.drawable.ic_warning));
                 }
             } else {
                 txtInstallError.setText(R.string.not_installed_no_lollipop);
-                txtInstallError.setTextColor(sActivity.getResources().getColor(R.color.warning));
+                //txtInstallError.setTextColor(sActivity.getResources().getColor(R.color.warning));
                 txtInstallContainer.setBackgroundColor(sActivity.getResources().getColor(R.color.warning));
                 txtInstallIcon.setImageDrawable(sActivity.getResources().getDrawable(R.drawable.ic_error));
                 xposedDisable.setVisibility(View.GONE);

@@ -38,7 +38,6 @@ import de.robv.android.xposed.installer.util.RepoLoader.RepoListener;
 import de.robv.android.xposed.installer.util.ThemeUtil;
 
 import static de.robv.android.xposed.installer.XposedApp.TAG;
-import static de.robv.android.xposed.installer.XposedApp.darkenColor;
 
 public class DownloadDetailsActivity extends XposedBaseActivity implements RepoListener, ModuleListener {
 
@@ -56,8 +55,6 @@ public class DownloadDetailsActivity extends XposedBaseActivity implements RepoL
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ThemeUtil.setTheme(this);
-
         mPackageName = getModulePackageName();
         try {
             mModule = sRepoLoader.getModule(mPackageName);
@@ -70,6 +67,7 @@ public class DownloadDetailsActivity extends XposedBaseActivity implements RepoL
         mInstalledModule = ModuleUtil.getInstance().getModule(mPackageName);
 
         super.onCreate(savedInstanceState);
+        ThemeUtil.setTheme(this);
         sRepoLoader.addListener(this, false);
         sModuleUtil.addListener(this);
 
@@ -79,12 +77,7 @@ public class DownloadDetailsActivity extends XposedBaseActivity implements RepoL
             Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+            toolbar.setNavigationOnClickListener(view -> finish());
 
             ActionBar ab = getSupportActionBar();
 
@@ -129,8 +122,10 @@ public class DownloadDetailsActivity extends XposedBaseActivity implements RepoL
     protected void onResume() {
         super.onResume();
 
+        /*
         if (Build.VERSION.SDK_INT >= 21)
             getWindow().setStatusBarColor(darkenColor(XposedApp.getColor(this), 0.85f));
+            */
 
     }
 
@@ -139,7 +134,7 @@ public class DownloadDetailsActivity extends XposedBaseActivity implements RepoL
         mPager.setAdapter(new SwipeFragmentPagerAdapter(getSupportFragmentManager()));
         TabLayout mTabLayout = findViewById(R.id.sliding_tabs);
         mTabLayout.setupWithViewPager(mPager);
-        mTabLayout.setBackgroundColor(XposedApp.getColor(this));
+        //mTabLayout.setBackgroundColor(XposedApp.getColor(this));
     }
 
     private String getModulePackageName() {

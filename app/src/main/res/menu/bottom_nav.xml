@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/drawer_item_1"
+        android:icon="@drawable/ic_selector_home"
+        android:title="@string/nav_item_install" />
+    <item
+        android:id="@+id/drawer_item_2"
+        android:icon="@drawable/ic_selector_extension"
+        android:title="@string/nav_item_modules" />
+    <item
+        android:id="@+id/drawer_item_3"
+        android:icon="@drawable/ic_selector_cloud_download"
+        android:title="@string/nav_item_download" />
+    <!--
+    <item
+        android:id="@+id/drawer_item_errlog"
+        android:icon="@drawable/ic_nav_logs"
+        android:title="@string/nav_item_logs_err" />
+        -->
+    <item
+        android:id="@+id/navigation_fragment"
+        android:icon="@drawable/ic_selector_all_inbox"
+        android:title="@string/nav_item_settings" />
+</menu>

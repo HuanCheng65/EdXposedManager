@@ -10,13 +10,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.FileUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -37,12 +40,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
+import de.robv.android.xposed.installer.util.DisplayUtil;
 import de.robv.android.xposed.installer.util.RepoLoader;
 import de.robv.android.xposed.installer.util.ThemeUtil;
 import de.robv.android.xposed.installer.widget.IconListPreference;
 
 import static de.robv.android.xposed.installer.XposedApp.WRITE_EXTERNAL_PERMISSION;
-import static de.robv.android.xposed.installer.XposedApp.darkenColor;
 
 public class SettingsActivity extends XposedBaseActivity implements ColorChooserDialog.ColorCallback, FolderChooserDialog.FolderCallback {
 
@@ -180,6 +183,13 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
         private Preference downloadLocation;
 
         public SettingsFragment() {
+        }
+
+        @Override
+        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            setDivider(new ColorDrawable(Color.TRANSPARENT));
+            setDividerHeight(DisplayUtil.dp2px(view.getContext(), 1));
         }
 
         @SuppressLint({"WorldReadableFiles", "WorldWriteableFiles"})
@@ -453,7 +463,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                 return (enabled == finalFlagFile.exists());
             });
 
-            Objects.requireNonNull(colors).setOnPreferenceClickListener(this);
+            //Objects.requireNonNull(colors).setOnPreferenceClickListener(this);
             Objects.requireNonNull(customIcon).setOnPreferenceChangeListener(iconChange);
             downloadLocation.setOnPreferenceClickListener(this);
 
@@ -465,8 +475,10 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
 
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
+            /*
             if (Build.VERSION.SDK_INT >= 21)
                 Objects.requireNonNull(getActivity()).getWindow().setStatusBarColor(darkenColor(XposedApp.getColor(getActivity()), 0.85f));
+                */
         }
 
         @Override

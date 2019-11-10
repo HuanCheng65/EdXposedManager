@@ -2,8 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/list_download_item_color"
-    android:foreground="?android:attr/selectableItemBackground">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/selectableItemBackground">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,36 +11,55 @@
         android:padding="16dip">
 
         <TextView
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:id="@android:id/text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp" />
+            android:textColor="?android:textColorPrimary"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
 
-        <TextView
-            android:id="@android:id/text2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <androidx.cardview.widget.CardView
             android:layout_below="@android:id/text1"
             android:layout_alignStart="@android:id/text1"
-            android:layout_marginBottom="8dip"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:id="@+id/content_card"
+            app:cardBackgroundColor="?attr/color_card"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:strokeWidth="0dp"
+            app:contentPadding="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="14sp"
+                android:id="@android:id/text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?android:textColorPrimary"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
+            android:textSize="12sp"
             android:id="@+id/downloadStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@android:id/text2"
-            android:layout_alignStart="@android:id/text2"
+            android:layout_below="@id/content_card"
+            android:layout_alignStart="@id/content_card"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:visibility="gone" />
 
         <TextView
+            android:textSize="12sp"
             android:id="@+id/timestamps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/downloadStatus"
-            android:layout_alignStart="@android:id/text2"
+            android:layout_alignStart="@id/downloadStatus"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/tertiary_text_dark" />
+            android:textColor="?android:textColorSecondary" />
     </RelativeLayout>
 </FrameLayout>

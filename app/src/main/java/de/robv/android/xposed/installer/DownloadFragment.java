@@ -21,18 +21,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CursorAdapter;
 import android.widget.FilterQueryProvider;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.meowcat.edxposed.manager.R;
 
@@ -153,14 +150,16 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
         if (Build.VERSION.SDK_INT >= 26) {
             mListView.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
+        mListView.setDividerHeight(0);
+        mListView.setOnStickyHeaderChangedListener((l, header, itemPosition, headerId) -> {
+            View divider = header.findViewById(R.id.divider);
+            divider.setVisibility(View.GONE);
+        });
         final SwipeRefreshLayout refreshLayout = v.findViewById(R.id.swiperefreshlayout);
         refreshLayout.setColorSchemeColors(XposedApp.getColor(getContext()));
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mRepoLoader.setSwipeRefreshLayout(refreshLayout);
-                mRepoLoader.triggerReload(true);
-            }
+        refreshLayout.setOnRefreshListener(() -> {
+            mRepoLoader.setSwipeRefreshLayout(refreshLayout);
+            mRepoLoader.triggerReload(true);
         });
         mRepoLoader.addListener(this, true);
         mModuleUtil.addListener(this);
@@ -179,28 +178,22 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
             }
         });
 
-        mListView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Cursor cursor = (Cursor) mAdapter.getItem(position);
-                String packageName = cursor.getString(OverviewColumnsIndexes.PKGNAME);
+        mListView.setOnItemClickListener((parent, view, position, id) -> {
+            Cursor cursor = (Cursor) mAdapter.getItem(position);
+            String packageName = cursor.getString(OverviewColumnsIndexes.PKGNAME);
 
-                Intent detailsIntent = new Intent(getActivity(), DownloadDetailsActivity.class);
-                detailsIntent.setData(Uri.fromParts("package", packageName, null));
-                startActivity(detailsIntent);
-            }
+            Intent detailsIntent = new Intent(getActivity(), DownloadDetailsActivity.class);
+            detailsIntent.setData(Uri.fromParts("package", packageName, null));
+            startActivity(detailsIntent);
         });
-        mListView.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // Expand the search view when the SEARCH key is triggered
-                if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getAction() == KeyEvent.ACTION_UP && (event.getFlags() & KeyEvent.FLAG_CANCELED) == 0) {
-                    if (mSearchView != null)
-                        mSearchView.setIconified(false);
-                    return true;
-                }
-                return false;
+        mListView.setOnKeyListener((v1, keyCode, event) -> {
+            // Expand the search view when the SEARCH key is triggered
+            if (keyCode == KeyEvent.KEYCODE_SEARCH && event.getAction() == KeyEvent.ACTION_UP && (event.getFlags() & KeyEvent.FLAG_CANCELED) == 0) {
+                if (mSearchView != null)
+                    mSearchView.setIconified(false);
+                return true;
             }
+            return false;
         });
 
         setHasOptionsMenu(true);
@@ -265,20 +258,14 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_sort:
-                new MaterialDialog.Builder(getActivity())
-                        .title(R.string.download_sorting_title)
-                        .items(R.array.download_sort_order)
-                        .itemsCallbackSingleChoice(mSortingOrder,
-                                new MaterialDialog.ListCallbackSingleChoice() {
-                                    @Override
-                                    public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                                        mSortingOrder = i;
-                                        mPref.edit().putInt("download_sorting_order", mSortingOrder).apply();
-                                        reloadItems();
-                                        materialDialog.dismiss();
-                                        return true;
-                                    }
-                                })
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.download_sorting_title)
+                        .setSingleChoiceItems(R.array.download_sort_order, mSortingOrder, (dialog, which) -> {
+                            mSortingOrder = which;
+                            mPref.edit().putInt("download_sorting_order", mSortingOrder).apply();
+                            reloadItems();
+                            dialog.dismiss();
+                        })
                         .show();
                 return true;
         }
@@ -339,6 +326,9 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
             }
 
             long section = getHeaderId(position);
+
+            View divider = convertView.findViewById(R.id.divider);
+            divider.setVisibility(position > 0 ? View.VISIBLE : View.GONE);
 
             TextView tv = convertView.findViewById(android.R.id.title);
             tv.setText(mSortingOrder == RepoDb.SORT_STATUS

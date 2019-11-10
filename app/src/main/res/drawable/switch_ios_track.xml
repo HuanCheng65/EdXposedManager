@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <stroke
+        android:width="2.75dp"
+        android:color="@color/transparent" />
+    <solid android:color="@drawable/selector_switch" />
+    <corners android:radius="20dp" />
+</shape>

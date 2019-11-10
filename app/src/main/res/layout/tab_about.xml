@@ -65,7 +65,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_info" />
+                        android:src="@drawable/ic_two_tone_info" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -106,9 +106,10 @@
                     android:focusable="true">
 
                     <ImageView
+                        android:tint="?attr/color_icon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_history" />
+                        android:src="@drawable/ic_two_tone_watch_later" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -136,9 +137,10 @@
                     android:focusable="true">
 
                     <ImageView
+                        android:tint="?attr/color_icon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_description" />
+                        android:src="@drawable/ic_two_tone_description" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -169,7 +171,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_language" />
+                        android:src="@drawable/ic_two_tone_language" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"

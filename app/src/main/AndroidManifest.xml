@@ -153,8 +153,7 @@
         <activity
             android:name="de.robv.android.xposed.installer.DownloadDetailsActivity"
             android:configChanges="orientation|screenSize"
-            android:exported="true"
-            android:theme="@style/Theme.XposedInstaller.Transparent">
+            android:exported="true">
             <intent-filter>
                 <action android:name="de.robv.android.xposed.installer.DOWNLOAD_DETAILS" />
 
@@ -182,28 +181,19 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="de.robv.android.xposed.installer.SettingsActivity"
-            android:theme="@style/Theme.XposedInstaller.Transparent">
+        <activity android:name="de.robv.android.xposed.installer.SettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="de.robv.android.xposed.installer.SupportActivity"
-            android:theme="@style/Theme.XposedInstaller.Transparent" />
-        <activity
-            android:name="de.robv.android.xposed.installer.AboutActivity"
-            android:theme="@style/Theme.XposedInstaller.Transparent" />
-        <activity
-            android:name="de.robv.android.xposed.installer.ModulesBookmark"
-            android:theme="@style/Theme.XposedInstaller.Transparent" />
+        <activity android:name="de.robv.android.xposed.installer.SupportActivity" />
+        <activity android:name="de.robv.android.xposed.installer.AboutActivity" />
+        <activity android:name="de.robv.android.xposed.installer.ModulesBookmark" />
         <activity
             android:name="de.robv.android.xposed.installer.installation.InstallationActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.XposedInstaller.Transparent" />
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name="de.robv.android.xposed.installer.receivers.PackageChangeReceiver"

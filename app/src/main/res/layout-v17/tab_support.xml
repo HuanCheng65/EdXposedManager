@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="8dp"
+            app:cardElevation="0dp"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardBackgroundColor="?attr/list_download_item_color"
             app:cardUseCompatPadding="true">
@@ -41,9 +42,10 @@
                     android:focusable="true">
 
                     <ImageView
+                        android:tint="?attr/color_icon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_info" />
+                        android:src="@drawable/ic_two_tone_info" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -86,9 +88,10 @@
                     android:focusable="true">
 
                     <ImageView
+                        android:tint="?attr/color_icon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_help" />
+                        android:src="@drawable/ic_two_tone_help" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -124,6 +127,7 @@
                     android:focusable="true">
 
                     <ImageView
+                        android:tint="?attr/color_icon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_nav_logs" />
@@ -162,6 +166,7 @@
                     android:focusable="true">
 
                     <ImageView
+                        android:tint="?attr/color_icon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_donate" />

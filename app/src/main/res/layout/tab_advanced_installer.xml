@@ -9,12 +9,16 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/color_app_bar"
+        app:tabBackground="@color/transparent"
+        android:elevation="0dp"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:tabIndicatorColor="@android:color/white"
+        app:tabIndicatorColor="?attr/colorAccent"
+        app:tabIndicator="@drawable/drawable_toolbar_tab_indicator"
         app:tabMode="scrollable"
+        app:tabIndicatorFullWidth="false"
+        app:tabTextColor="?attr/color_unselected"
+        app:tabSelectedTextColor="?attr/colorAccent"
         app:tabTextAppearance="@style/TextAppearance.Design.Tab" />
 
     <androidx.viewpager.widget.ViewPager

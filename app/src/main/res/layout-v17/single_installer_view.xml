@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginBottom="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,10 +14,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="8dp"
-            android:fillViewport="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
             app:cardBackgroundColor="?attr/list_download_item_color"
             app:cardElevation="@dimen/card_elevation"
             app:cardUseCompatPadding="true">
@@ -26,20 +25,25 @@
                 android:layout_height="wrap_content">
 
                 <RelativeLayout
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:id="@+id/container"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="6dp">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/tabInstall"
+                        android:padding="8dp"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
                         android:textAllCaps="true"
                         android:textStyle="bold" />
 
                     <Spinner
+                        style="@style/Widget.AppCompat.Spinner.DropDown"
                         android:id="@+id/chooserInstallers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -50,6 +54,7 @@
                         android:layout_toStartOf="@+id/infoInstaller"
                         android:layout_toLeftOf="@+id/infoInstaller"
                         android:spinnerMode="dropdown"
+                        android:popupBackground="@drawable/background_popup"
                         tools:ignore="RtlHardcoded" />
 
                     <ImageView
@@ -62,7 +67,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_gravity="center"
                         android:padding="5dp"
-                        android:src="@drawable/ic_info"
+                        android:src="@drawable/ic_two_tone_info"
+                        android:tint="?attr/color_icon"
                         tools:ignore="ContentDescription,RtlHardcoded" />
 
                     <androidx.cardview.widget.CardView
@@ -73,6 +79,8 @@
                         android:orientation="horizontal"
                         android:visibility="gone"
                         app:cardBackgroundColor="@color/amber_500"
+                        app:cardElevation="0dp"
+                        app:contentPadding="16dp"
                         app:cardCornerRadius="@dimen/card_corner_radius">
 
                         <LinearLayout
@@ -83,10 +91,12 @@
 
                             <ImageView
                                 android:id="@+id/imageView"
-                                android:layout_width="50dp"
-                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/icon_size"
+                                android:layout_height="@dimen/icon_size"
+                                android:layout_gravity="center_vertical"
                                 android:layout_margin="8dp"
-                                android:src="@drawable/ic_warning"
+                                android:src="@drawable/ic_two_tone_warning"
+                                android:tint="?attr/color_icon"
                                 tools:ignore="ContentDescription" />
 
                             <TextView
@@ -112,6 +122,8 @@
                         android:orientation="horizontal"
                         android:visibility="gone"
                         app:cardBackgroundColor="@color/amber_500"
+                        app:cardElevation="0dp"
+                        app:contentPadding="16dp"
                         app:cardCornerRadius="@dimen/card_corner_radius">
 
                         <LinearLayout
@@ -122,10 +134,12 @@
 
                             <ImageView
                                 android:id="@+id/imageView1"
-                                android:layout_width="50dp"
-                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/icon_size"
+                                android:layout_height="@dimen/icon_size"
+                                android:layout_gravity="center_vertical"
                                 android:layout_margin="8dp"
-                                android:src="@drawable/ic_warning"
+                                android:src="@drawable/ic_two_tone_warning"
+                                android:tint="?attr/color_icon"
                                 tools:ignore="ContentDescription" />
 
                             <TextView
@@ -143,7 +157,11 @@
 
                     </androidx.cardview.widget.CardView>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
+                        android:textColor="?android:attr/textColorPrimaryInverse"
+                        app:backgroundTint="?attr/colorAccent"
+                        app:cornerRadius="@dimen/card_corner_radius"
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                         android:id="@+id/btnInstall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -164,6 +182,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_toStartOf="@+id/infoUninstaller"
                         android:layout_toLeftOf="@+id/infoUninstaller"
+                        android:popupBackground="@drawable/background_popup"
                         android:spinnerMode="dropdown"
                         tools:ignore="RtlHardcoded" />
 
@@ -178,16 +197,21 @@
                         android:layout_gravity="center|end"
                         android:layout_marginTop="5dp"
                         android:padding="5dp"
-                        android:src="@drawable/ic_info"
+                        android:src="@drawable/ic_two_tone_info"
+                        android:tint="?attr/color_icon"
                         tools:ignore="ContentDescription,RtlHardcoded" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnUninstall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/chooserUninstallers"
                         android:layout_alignEnd="@+id/infoUninstaller"
                         android:layout_alignRight="@+id/infoUninstaller"
+                        android:textColor="?android:attr/textColorPrimaryInverse"
+                        app:backgroundTint="?attr/colorAccent"
+                        app:cornerRadius="@dimen/card_corner_radius"
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                         android:text="@string/uninstall"
                         tools:ignore="RtlHardcoded" />
 
@@ -209,16 +233,16 @@
                     android:focusable="true">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_person"
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:src="@drawable/ic_two_tone_account_circle"
+                        android:tint="?attr/color_icon"
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginLeft="32dp"
+                        android:layout_marginStart="12dp"
                         android:orientation="vertical"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
@@ -250,16 +274,16 @@
                     android:focusable="true">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_help"
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:tint="?attr/color_icon"
+                        android:src="@drawable/ic_two_tone_help"
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginLeft="32dp"
+                        android:layout_marginStart="12dp"
                         android:orientation="vertical"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
@@ -290,16 +314,16 @@
                     android:focusable="true">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_description"
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:src="@drawable/ic_two_tone_description"
+                        android:tint="?attr/color_icon"
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginLeft="32dp"
+                        android:layout_marginStart="12dp"
                         android:orientation="vertical"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
@@ -322,9 +346,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/updateDescription"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginTop="5dp"
-                    android:padding="6dp"
+                    android:padding="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:text="@string/compatibility"
                     android:textAllCaps="true"
                     android:textStyle="bold"
@@ -345,16 +369,16 @@
                     android:paddingEnd="16dp">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_action_thumb_up"
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:src="@drawable/ic_two_tone_thumb_up"
+                        android:tint="?attr/color_icon"
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginLeft="32dp"
+                        android:layout_marginStart="12dp"
                         android:orientation="vertical"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
@@ -385,16 +409,16 @@
                     android:focusable="true">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_action_thumb_down"
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:src="@drawable/ic_two_tone_thumb_down"
+                        android:tint="?attr/color_icon"
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginLeft="32dp"
+                        android:layout_marginStart="12dp"
                         android:orientation="vertical"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"

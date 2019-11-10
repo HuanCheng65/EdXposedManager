@@ -3,6 +3,7 @@ package de.robv.android.xposed.installer.installation;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -23,10 +24,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import com.afollestad.materialdialogs.MaterialDialog;
+import com.huanchengfly.edxp.interfaces.ButtonCallback;
 
 import org.meowcat.edxposed.manager.R;
 
@@ -171,8 +173,11 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
                     selectedInstaller.architecture,
                     selectedInstaller.version);
 
-            new MaterialDialog.Builder(Objects.requireNonNull(getContext())).title(R.string.info)
-                    .content(s).positiveText(android.R.string.ok).show();
+            new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                    .setTitle(R.string.info)
+                    .setMessage(s)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
         });
         infoUninstaller.setOnClickListener(v -> {
             XposedZip selectedUninstaller = (XposedZip) chooserUninstallers.getSelectedItem();
@@ -181,8 +186,12 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
                     selectedUninstaller.architecture,
                     selectedUninstaller.version);
 
-            new MaterialDialog.Builder(Objects.requireNonNull(getContext())).title(R.string.info)
-                    .content(s).positiveText(android.R.string.ok).show();
+
+            new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                    .setTitle(R.string.info)
+                    .setMessage(s)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
         });
 
         btnInstall.setOnClickListener(new View.OnClickListener() {
@@ -192,9 +201,9 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
                 if (checkPermissions()) return;
 
                 areYouSure(R.string.warningArchitecture,
-                        new MaterialDialog.ButtonCallback() {
+                        new ButtonCallback() {
                             @Override
-                            public void onPositive(MaterialDialog dialog) {
+                            public void onPositive(DialogInterface dialog) {
                                 super.onPositive(dialog);
                                 XposedZip selectedInstaller = (XposedZip) chooserInstallers.getSelectedItem();
                                 Uri uri = Uri.parse(selectedInstaller.link);
@@ -212,9 +221,9 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
                 if (checkPermissions()) return;
 
                 areYouSure(R.string.warningArchitecture,
-                        new MaterialDialog.ButtonCallback() {
+                        new ButtonCallback() {
                             @Override
-                            public void onPositive(MaterialDialog dialog) {
+                            public void onPositive(DialogInterface dialog) {
                                 super.onPositive(dialog);
                                 XposedZip selectedUninstaller = (XposedZip) chooserUninstallers.getSelectedItem();
                                 Uri uri = Uri.parse(selectedUninstaller.link);
@@ -247,11 +256,12 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
         }
 
         showOnXda.setOnClickListener(v -> NavUtil.startURL(getActivity(), xdaUrl()));
-        updateDescription.setOnClickListener(v -> new MaterialDialog.Builder(Objects.requireNonNull(getContext()))
-                .title(R.string.changes)
-                .content(Html.fromHtml(description()))
-                .positiveText(android.R.string.ok).show());
 
+        updateDescription.setOnClickListener(v -> new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                .setTitle(R.string.changes)
+                .setMessage(Html.fromHtml(description()))
+                .setPositiveButton(android.R.string.ok, null)
+                .show());
         return view;
     }
 
@@ -287,9 +297,9 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        areYouSure(R.string.install_warning, new MaterialDialog.ButtonCallback() {
+                        areYouSure(R.string.install_warning, new ButtonCallback() {
                             @Override
-                            public void onPositive(MaterialDialog dialog) {
+                            public void onPositive(DialogInterface dialog) {
                                 super.onPositive(dialog);
 
                                 if (!startShell()) return;
@@ -309,9 +319,9 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        areYouSure(R.string.install_warning, new MaterialDialog.ButtonCallback() {
+                        areYouSure(R.string.install_warning, new ButtonCallback() {
                             @Override
-                            public void onPositive(MaterialDialog dialog) {
+                            public void onPositive(DialogInterface dialog) {
                                 super.onPositive(dialog);
 
                                 if (!startShell()) return;
@@ -332,9 +342,9 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                areYouSure(R.string.install_warning, new MaterialDialog.ButtonCallback() {
+                areYouSure(R.string.install_warning, new ButtonCallback() {
                     @Override
-                    public void onPositive(MaterialDialog dialog) {
+                    public void onPositive(DialogInterface dialog) {
                         super.onPositive(dialog);
 
                         if (!startShell()) return;
@@ -347,12 +357,14 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
         });
     }
 
-    private void areYouSure(int contentTextId, MaterialDialog.ButtonCallback yesHandler) {
-        new MaterialDialog.Builder(Objects.requireNonNull(getActivity())).title(R.string.areyousure)
-                .content(contentTextId)
-                .iconAttr(android.R.attr.alertDialogIcon)
-                .positiveText(android.R.string.yes)
-                .negativeText(android.R.string.no).callback(yesHandler).show();
+    private void areYouSure(int contentTextId, ButtonCallback yesHandler) {
+        new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                .setTitle(R.string.areyousure)
+                .setMessage(contentTextId)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> yesHandler.onPositive(dialog))
+                .setNegativeButton(android.R.string.no, (dialog, which) -> yesHandler.onNegative(dialog))
+                .show();
     }
 
     private boolean startShell() {
@@ -369,8 +381,10 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
             return;
         }
 
-        MaterialDialog dialog = new MaterialDialog.Builder(Objects.requireNonNull(getActivity())).content(result).positiveText(android.R.string.ok).build();
-        dialog.show();
+        AlertDialog dialog = new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                .setMessage(result)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
 
         TextView txtMessage = (TextView) dialog
                 .findViewById(android.R.id.message);
@@ -384,15 +398,17 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
         return XposedApp.getPreferences().getInt("install_mode", INSTALL_MODE_NORMAL);
     }
 
-    private void showConfirmDialog(final String message, final MaterialDialog.ButtonCallback callback) {
+    private void showConfirmDialog(final String message, final ButtonCallback callback) {
         if (Looper.myLooper() != Looper.getMainLooper()) {
             Objects.requireNonNull(getActivity()).runOnUiThread(() -> showConfirmDialog(message, callback));
             return;
         }
 
-        new MaterialDialog.Builder(Objects.requireNonNull(getActivity()))
-                .content(message).positiveText(android.R.string.yes)
-                .negativeText(android.R.string.no).callback(callback).show();
+        new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                .setMessage(message)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> callback.onPositive(dialog))
+                .setNegativeButton(android.R.string.no, (dialog, which) -> callback.onNegative(dialog))
+                .show();
     }
 
     private void prepareInstall(List<String> messages) {
@@ -522,9 +538,9 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
         messages.add("");
         messages.add(getString(R.string.reboot_confirmation));
         showConfirmDialog(TextUtils.join("\n", messages).trim(),
-                new MaterialDialog.ButtonCallback() {
+                new ButtonCallback() {
                     @Override
-                    public void onPositive(MaterialDialog dialog) {
+                    public void onPositive(DialogInterface dialog) {
                         super.onPositive(dialog);
                         reboot(null);
                     }
@@ -540,16 +556,14 @@ public class BaseAdvancedInstaller extends Fragment implements DownloadsUtil.Dow
         messages.add("");
         messages.add(getString(R.string.reboot_recovery_confirmation));
         showConfirmDialog(TextUtils.join("\n", messages).trim(),
-                new MaterialDialog.ButtonCallback() {
+                new ButtonCallback() {
                     @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        super.onPositive(dialog);
+                    public void onPositive(DialogInterface dialog) {
                         reboot("recovery");
                     }
 
                     @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        super.onNegative(dialog);
+                    public void onNegative(DialogInterface dialog) {
                         if (installMode == INSTALL_MODE_RECOVERY_AUTO) {
                             // clean up to avoid unwanted flashing
                             mRootUtil.executeWithBusybox("rm /cache/recovery/command");

@@ -1,6 +1,7 @@
 package de.robv.android.xposed.installer.installation;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,11 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -29,6 +30,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.annimon.stream.Stream;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
+import com.huanchengfly.edxp.interfaces.ButtonCallback;
 
 import org.meowcat.edxposed.manager.BuildConfig;
 import org.meowcat.edxposed.manager.R;
@@ -69,25 +71,24 @@ public class AdvancedInstallerFragment extends Fragment {
         mPager.setAdapter(tabsAdapter);
         mTabLayout.setupWithViewPager(mPager);
 
+        mTabLayout.setElevation(0);
+
         setHasOptionsMenu(true);
         new JSONParser().execute();
 
         if (!XposedApp.getPreferences().getBoolean("hide_install_warning", false)) {
             @SuppressLint("InflateParams") final View dontShowAgainView = inflater.inflate(R.layout.dialog_install_warning, null);
 
-            new MaterialDialog.Builder(Objects.requireNonNull(getActivity()))
-                    .title(R.string.install_warning_title)
-                    .customView(dontShowAgainView, false)
-                    .positiveText(android.R.string.ok)
-                    .callback(new MaterialDialog.ButtonCallback() {
-                        @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
-                            CheckBox checkBox = dontShowAgainView.findViewById(android.R.id.checkbox);
-                            if (checkBox.isChecked())
-                                XposedApp.getPreferences().edit().putBoolean("hide_install_warning", true).apply();
-                        }
-                    }).cancelable(false).show();
+            new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                    .setTitle(R.string.install_warning_title)
+                    .setView(dontShowAgainView)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        CheckBox checkBox = dontShowAgainView.findViewById(android.R.id.checkbox);
+                        if (checkBox.isChecked())
+                            XposedApp.getPreferences().edit().putBoolean("hide_install_warning", true).apply();
+                    })
+                    .setCancelable(false)
+                    .show();
         }
 
         return view;
@@ -96,9 +97,7 @@ public class AdvancedInstallerFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        mTabLayout.setBackgroundColor(XposedApp.getColor(Objects.requireNonNull(getContext())));
-
+        //mTabLayout.setBackgroundColor(XposedApp.getColor(Objects.requireNonNull(getContext())));
     }
 
     @Override
@@ -115,10 +114,11 @@ public class AdvancedInstallerFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.dexopt_all:
-                areYouSure(R.string.take_while_cannot_resore, new MaterialDialog.ButtonCallback() {
+                areYouSure(R.string.take_while_cannot_resore, new ButtonCallback() {
                     @Override
-                    public void onPositive(MaterialDialog mDialog) {
+                    public void onPositive(DialogInterface mDialog) {
                         super.onPositive(mDialog);
+                        //TODO: 用AlertDialog替换
                         new MaterialDialog.Builder(Objects.requireNonNull(getActivity()))
                                 .title(R.string.dexopt_now)
                                 .content(R.string.this_may_take_a_while)
@@ -144,10 +144,11 @@ public class AdvancedInstallerFragment extends Fragment {
                 });
                 break;
             case R.id.speed_all:
-                areYouSure(R.string.take_while_cannot_resore, new MaterialDialog.ButtonCallback() {
+                areYouSure(R.string.take_while_cannot_resore, new ButtonCallback() {
                     @Override
-                    public void onPositive(MaterialDialog mDialog) {
+                    public void onPositive(DialogInterface mDialog) {
                         super.onPositive(mDialog);
+                        //TODO: 用AlertDialog替換
                         new MaterialDialog.Builder(Objects.requireNonNull(getActivity()))
                                 .title(R.string.speed_now)
                                 .content(R.string.this_may_take_a_while)
@@ -174,10 +175,9 @@ public class AdvancedInstallerFragment extends Fragment {
                 break;
             case R.id.reboot:
                 if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
-                    areYouSure(R.string.reboot, new MaterialDialog.ButtonCallback() {
+                    areYouSure(R.string.reboot, new ButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
+                        public void onPositive(DialogInterface dialog) {
                             reboot(null);
                         }
                     });
@@ -187,10 +187,9 @@ public class AdvancedInstallerFragment extends Fragment {
                 break;
             case R.id.soft_reboot:
                 if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
-                    areYouSure(R.string.soft_reboot, new MaterialDialog.ButtonCallback() {
+                    areYouSure(R.string.soft_reboot, new ButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
+                        public void onPositive(DialogInterface dialog) {
                             softReboot();
                         }
                     });
@@ -200,10 +199,9 @@ public class AdvancedInstallerFragment extends Fragment {
                 break;
             case R.id.reboot_recovery:
                 if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
-                    areYouSure(R.string.reboot_recovery, new MaterialDialog.ButtonCallback() {
+                    areYouSure(R.string.reboot_recovery, new ButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
+                        public void onPositive(DialogInterface dialog) {
                             reboot("recovery");
                         }
                     });
@@ -213,10 +211,9 @@ public class AdvancedInstallerFragment extends Fragment {
                 break;
             case R.id.reboot_bootloader:
                 if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
-                    areYouSure(R.string.reboot_bootloader, new MaterialDialog.ButtonCallback() {
+                    areYouSure(R.string.reboot_bootloader, new ButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
+                        public void onPositive(DialogInterface dialog) {
                             reboot("bootloader");
                         }
                     });
@@ -226,10 +223,9 @@ public class AdvancedInstallerFragment extends Fragment {
                 break;
             case R.id.reboot_download:
                 if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
-                    areYouSure(R.string.reboot_download, new MaterialDialog.ButtonCallback() {
+                    areYouSure(R.string.reboot_download, new ButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            super.onPositive(dialog);
+                        public void onPositive(DialogInterface dialog) {
                             reboot("download");
                         }
                     });
@@ -250,12 +246,14 @@ public class AdvancedInstallerFragment extends Fragment {
         return true;
     }
 
-    private void areYouSure(int contentTextId, @SuppressWarnings("deprecation") MaterialDialog.ButtonCallback yesHandler) {
-        new MaterialDialog.Builder(Objects.requireNonNull(getActivity())).title(R.string.areyousure)
-                .content(contentTextId)
-                .iconAttr(android.R.attr.alertDialogIcon)
-                .positiveText(android.R.string.yes)
-                .negativeText(android.R.string.no).callback(yesHandler).show();
+    private void areYouSure(int contentTextId, ButtonCallback yesHandler) {
+        new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                .setTitle(R.string.areyousure)
+                .setMessage(contentTextId)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> yesHandler.onPositive(dialog))
+                .setNegativeButton(android.R.string.no, (dialog, which) -> yesHandler.onNegative(dialog))
+                .show();
     }
 
     private void showAlert(final String result) {
@@ -264,15 +262,10 @@ public class AdvancedInstallerFragment extends Fragment {
             return;
         }
 
-        MaterialDialog dialog = new MaterialDialog.Builder(Objects.requireNonNull(getActivity())).content(result).positiveText(android.R.string.ok).build();
-        dialog.show();
-
-        TextView txtMessage = (TextView) dialog
-                .findViewById(android.R.id.message);
-        try {
-            txtMessage.setTextSize(14);
-        } catch (NullPointerException ignored) {
-        }
+        new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                .setMessage(result)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     private void softReboot() {
