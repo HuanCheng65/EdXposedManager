@@ -108,9 +108,9 @@
     <style name="Theme.XposedInstaller.Toolbar" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="android:elevation">@dimen/toolbar_elevation</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">?attr/color_app_bar_item</item>
-        <item name="actionMenuTextColor">?attr/color_app_bar_item</item>
-        <item name="android:textColorSecondary">?attr/color_app_bar_item</item>
+        <item name="android:textColorPrimary">?color_app_bar_item</item>
+        <item name="actionMenuTextColor">?color_app_bar_item</item>
+        <item name="android:textColorSecondary">?color_app_bar_item</item>
         <item name="titleTextAppearance">@style/TextAppearance.ToolbarTitle</item>
     </style>
 

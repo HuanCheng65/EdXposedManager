@@ -23,6 +23,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.XposedInstaller.Light"
         tools:ignore="ManifestResource,UnusedAttribute">
+
+        <meta-data
+            android:name="use_miui_font"
+            android:value="true" />
+
         <activity
             android:name="de.robv.android.xposed.installer.WelcomeActivity"
             android:configChanges="orientation|screenSize"
