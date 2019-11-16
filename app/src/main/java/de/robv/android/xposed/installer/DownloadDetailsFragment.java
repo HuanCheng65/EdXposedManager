@@ -66,7 +66,7 @@ public class DownloadDetailsFragment extends Fragment {
             TextView txtTitle = moreInfoView.findViewById(android.R.id.title);
             TextView txtValue = moreInfoView.findViewById(android.R.id.message);
 
-            txtTitle.setText(moreInfoEntry.first + ":");
+            txtTitle.setText(moreInfoEntry.first);
             txtValue.setText(moreInfoEntry.second);
 
             final Uri link = NavUtil.parseURL(moreInfoEntry.second);

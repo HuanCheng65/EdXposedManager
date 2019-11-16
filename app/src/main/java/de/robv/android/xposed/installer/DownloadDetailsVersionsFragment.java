@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
@@ -12,9 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntRange;
 import androidx.fragment.app.ListFragment;
 
 import org.meowcat.edxposed.manager.R;
@@ -22,11 +27,13 @@ import org.meowcat.edxposed.manager.R;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import de.robv.android.xposed.installer.repo.Module;
 import de.robv.android.xposed.installer.repo.ModuleVersion;
 import de.robv.android.xposed.installer.repo.ReleaseType;
 import de.robv.android.xposed.installer.repo.RepoParser;
+import de.robv.android.xposed.installer.util.DisplayUtil;
 import de.robv.android.xposed.installer.util.DownloadsUtil;
 import de.robv.android.xposed.installer.util.HashUtil;
 import de.robv.android.xposed.installer.util.InstallApkUtil;
@@ -63,16 +70,24 @@ public class DownloadDetailsVersionsFragment extends ListFragment {
         } else {
             RepoLoader repoLoader = RepoLoader.getInstance();
             if (!repoLoader.isVersionShown(module.versions.get(0))) {
-                TextView txtHeader = new TextView(getActivity());
+                TextView txtHeader = new TextView(Objects.requireNonNull(getActivity()));
+                FrameLayout txtHeaderContainer = new FrameLayout(getActivity());
+                txtHeaderContainer.setPadding(DisplayUtil.dp2px(getActivity(), 8),
+                        0,
+                        DisplayUtil.dp2px(getActivity(), 8),
+                        0);
                 txtHeader.setText(R.string.download_test_version_not_shown);
-                txtHeader.setTextColor(getResources().getColor(R.color.warning));
-                txtHeader.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mActivity.gotoPage(DownloadDetailsActivity.DOWNLOAD_SETTINGS);
-                    }
-                });
-                getListView().addHeaderView(txtHeader);
+                txtHeader.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                txtHeader.setBackgroundResource(R.drawable.bg_round);
+                txtHeader.setPadding(DisplayUtil.dp2px(getActivity(), 16),
+                        DisplayUtil.dp2px(getActivity(), 8),
+                        DisplayUtil.dp2px(getActivity(), 16),
+                        DisplayUtil.dp2px(getActivity(), 8));
+                txtHeader.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.amber_A700)).withAlpha(50));
+                txtHeader.setTextColor(getResources().getColor(R.color.amber_A700));
+                txtHeader.setOnClickListener(v -> mActivity.gotoPage(DownloadDetailsActivity.DOWNLOAD_SETTINGS));
+                txtHeaderContainer.addView(txtHeader);
+                getListView().addHeaderView(txtHeaderContainer);
             }
 
             sAdapter = new VersionsAdapter(mActivity, mActivity.getInstalledModule());
@@ -181,13 +196,20 @@ public class DownloadDetailsVersionsFragment extends ListFragment {
 
         public VersionsAdapter(Context context, InstalledModule installed) {
             super(context, R.layout.list_item_version);
-            mColorRelTypeStable = ThemeUtil.getThemeColor(context, android.R.attr.textColorTertiary);
+            mColorRelTypeStable = ThemeUtil.getThemeColor(context, android.R.attr.textColorSecondary);
             mColorRelTypeOthers = getResources().getColor(R.color.warning);
             mColorInstalled = ThemeUtil.getThemeColor(context, R.attr.download_status_installed);
             mColorUpdateAvailable = getResources().getColor(R.color.download_status_update_available);
-            mTextInstalled = getString(R.string.download_section_installed) + ":";
-            mTextUpdateAvailable = getString(R.string.download_section_update_available) + ":";
+            mTextInstalled = getString(R.string.download_section_installed);
+            mTextUpdateAvailable = getString(R.string.download_section_update_available);
             mInstalledVersionCode = (installed != null) ? installed.versionCode : -1;
+        }
+
+        private int alphaColor(@ColorInt int color, @IntRange(from = 0, to = 255) int alpha) {
+            int red = Color.red(color);
+            int green = Color.green(color);
+            int blue = Color.blue(color);
+            return Color.argb(alpha, red, green, blue);
         }
 
         @Override
@@ -213,6 +235,8 @@ public class DownloadDetailsVersionsFragment extends ListFragment {
 
             holder.txtVersion.setText(item.name);
             holder.txtRelType.setText(item.relType.getTitleId());
+            holder.txtRelType.setBackgroundTintList(ColorStateList.valueOf(alphaColor(item.relType == ReleaseType.STABLE
+                    ? mColorRelTypeStable : mColorRelTypeOthers, 50)));
             holder.txtRelType.setTextColor(item.relType == ReleaseType.STABLE
                     ? mColorRelTypeStable : mColorRelTypeOthers);
 
@@ -229,10 +253,12 @@ public class DownloadDetailsVersionsFragment extends ListFragment {
                 holder.txtStatus.setVisibility(View.GONE);
             } else if (item.code == mInstalledVersionCode) {
                 holder.txtStatus.setText(mTextInstalled);
+                holder.txtStatus.setBackgroundTintList(ColorStateList.valueOf(mColorInstalled).withAlpha(50));
                 holder.txtStatus.setTextColor(mColorInstalled);
                 holder.txtStatus.setVisibility(View.VISIBLE);
             } else { // item.code > mInstalledVersionCode
                 holder.txtStatus.setText(mTextUpdateAvailable);
+                holder.txtStatus.setBackgroundTintList(ColorStateList.valueOf(mColorUpdateAvailable).withAlpha(50));
                 holder.txtStatus.setTextColor(mColorUpdateAvailable);
                 holder.txtStatus.setVisibility(View.VISIBLE);
             }

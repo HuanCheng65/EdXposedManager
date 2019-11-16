@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -253,7 +254,7 @@ public class WelcomeActivity extends XposedBaseActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(SELECTED_ITEM_ID, mSelectedId);
     }

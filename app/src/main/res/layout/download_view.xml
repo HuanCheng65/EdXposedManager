@@ -41,6 +41,16 @@
             tools:ignore="ButtonOrder" />
 
         <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Button.Flat.Dense"
+            android:id="@+id/btnRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="30dip"
+            android:text="@string/download_view_remove"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
             style="@style/Widget.Button.Dense"
             android:id="@+id/btnInstall"
             android:layout_width="wrap_content"

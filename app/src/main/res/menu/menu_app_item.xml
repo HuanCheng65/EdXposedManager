@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/app_menu_launch"
-        android:icon="@drawable/ic_launch"
+        android:icon="@drawable/ic_two_tone_play_arrow"
         android:title="@string/app_launch" />
     <item
         android:id="@+id/app_menu_stop"
-        android:icon="@drawable/ic_stop"
+        android:icon="@drawable/ic_two_tone_stop"
         android:title="@string/app_stop" />
     <item
         android:id="@+id/app_menu_compile_speed"
@@ -18,18 +18,18 @@
         android:title="@string/menu_title_compile_dexopt" />
     <item
         android:id="@+id/app_menu_compile_reset"
-        android:icon="@drawable/ic_menu_delete"
+        android:icon="@drawable/ic_two_tone_delete_sweep"
         android:title="@string/menu_title_compile_reset" />
     <item
         android:id="@+id/app_menu_store"
-        android:icon="@drawable/ic_appstore"
+        android:icon="@drawable/ic_two_tone_dashboard"
         android:title="@string/modules_app_store" />
     <item
         android:id="@+id/app_menu_info"
-        android:icon="@drawable/ic_appinfo"
+        android:icon="@drawable/ic_two_tone_info"
         android:title="@string/module_app_info" />
     <item
         android:id="@+id/app_menu_uninstall"
-        android:icon="@drawable/ic_uninstall"
+        android:icon="@drawable/ic_two_tone_delete"
         android:title="@string/module_uninstall" />
 </menu>

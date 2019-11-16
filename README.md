@@ -1,4 +1,4 @@
-# <p align="center">EdXposedManager Beautify: A Beautify Version of EdXposed Manager.</p>
+# <p align="center">EdXposedManager Beautified: A Beautified Version of EdXposed Manager.</p>
 
 <p align="center">
     <a href="">

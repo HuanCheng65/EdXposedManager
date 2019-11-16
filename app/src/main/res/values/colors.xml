@@ -5,9 +5,14 @@
     <color name="colorAccent">#448aff</color>
     <color name="red_500">#F44336</color>
     <color name="warning">@color/red_500</color>
+    <color name="warning_trans">#33F44336</color>
     <color name="download_status_update_available">@color/darker_green</color>
     <color name="darker_green">#4CAF50</color>
-    <color name="amber_500">#FFC107</color>
+    <color name="amber_A700">#FFAB00</color>
+    <color name="amber_A700_trans">#33FFAB00</color>
+
+    <color name="color_switch_track_bg">#969696</color>
+    <color name="color_switch_track_disabled_bg">#C4C4C4</color>
 
     <!-- light theme-->
     <color name="background_material_light" tools:override="true">#ffffffff</color>

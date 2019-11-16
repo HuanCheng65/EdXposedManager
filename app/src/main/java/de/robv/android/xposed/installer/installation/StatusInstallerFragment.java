@@ -245,7 +245,7 @@ public class StatusInstallerFragment extends Fragment {
                 } else {
                     txtInstallError.setText(sActivity.getString(R.string.installed_lollipop_inactive, installedXposedVersion));
                     //txtInstallError.setTextColor(sActivity.getResources().getColor(R.color.amber_500));
-                    txtInstallContainer.setBackgroundColor(sActivity.getResources().getColor(R.color.amber_500));
+                    txtInstallContainer.setBackgroundColor(sActivity.getResources().getColor(R.color.amber_A700));
                     txtInstallIcon.setImageDrawable(sActivity.getResources().getDrawable(R.drawable.ic_warning));
                 }
             } else {
@@ -266,8 +266,8 @@ public class StatusInstallerFragment extends Fragment {
                 isXposedInstalled = true;
                 if (DISABLE_FILE.exists()) {
                     txtInstallError.setText(sActivity.getString(R.string.installed_lollipop_inactive, "" + installedXposedVersionInt));
-                    txtInstallError.setTextColor(sActivity.getResources().getColor(R.color.amber_500));
-                    txtInstallContainer.setBackgroundColor(sActivity.getResources().getColor(R.color.amber_500));
+                    txtInstallError.setTextColor(sActivity.getResources().getColor(R.color.amber_A700));
+                    txtInstallContainer.setBackgroundColor(sActivity.getResources().getColor(R.color.amber_A700));
                     txtInstallIcon.setImageDrawable(sActivity.getResources().getDrawable(R.drawable.ic_warning));
                 }
             } else {
@@ -440,6 +440,8 @@ public class StatusInstallerFragment extends Fragment {
                 return "Pie";
             case 29:
                 return "Q";
+            case 30:
+                return "R";
         }
         return "Unknown";
     }

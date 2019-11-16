@@ -11,10 +11,10 @@ android {
     defaultConfig {
         applicationId "org.meowcat.edxposed.manager"
         minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 451
-        versionName "4.5.1_Beautify"
-        project.ext.set("archivesBaseName", "EdXposedBeautify" + "_" + versionName + "_" + versionCode)
+        targetSdkVersion 27
+        versionCode 452
+        versionName "4.5.2_Beautified"
+        project.ext.set("archivesBaseName", versionName + "_" + versionCode)
     }
 
     buildTypes {

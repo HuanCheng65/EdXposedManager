@@ -71,17 +71,18 @@
                         android:tint="?attr/color_icon"
                         tools:ignore="ContentDescription,RtlHardcoded" />
 
-                    <androidx.cardview.widget.CardView
+                    <FrameLayout
                         android:id="@+id/warning_unstable"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/chooserInstallers"
                         android:orientation="horizontal"
                         android:visibility="gone"
-                        app:cardBackgroundColor="@color/amber_500"
-                        app:cardElevation="0dp"
-                        app:contentPadding="16dp"
-                        app:cardCornerRadius="@dimen/card_corner_radius">
+                        android:background="@drawable/bg_round"
+                        android:backgroundTint="@color/amber_A700_trans"
+                        android:padding="8dp"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="16dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -96,7 +97,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_margin="8dp"
                                 android:src="@drawable/ic_two_tone_warning"
-                                android:tint="?attr/color_icon"
+                                android:tint="@color/amber_A700"
                                 tools:ignore="ContentDescription" />
 
                             <TextView
@@ -108,11 +109,12 @@
                                 android:text="@string/unstable_build"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
+                                android:textColor="@color/amber_A700"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    </FrameLayout>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/warning_unofficial"
@@ -121,7 +123,7 @@
                         android:layout_below="@+id/warning_unstable"
                         android:orientation="horizontal"
                         android:visibility="gone"
-                        app:cardBackgroundColor="@color/amber_500"
+                        app:cardBackgroundColor="@color/amber_A700"
                         app:cardElevation="0dp"
                         app:contentPadding="16dp"
                         app:cardCornerRadius="@dimen/card_corner_radius">

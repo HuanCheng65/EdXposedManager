@@ -127,7 +127,7 @@
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
         <item name="android:elevation">0dp</item>
-        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:textColor">?colorAccent</item>
         <item name="cornerRadius">16dp</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -139,7 +139,7 @@
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
         <item name="android:elevation">0dp</item>
-        <item name="backgroundTint">?colorPrimary</item>
+        <item name="backgroundTint">?colorAccent</item>
         <item name="android:textColor">?android:textColorPrimaryInverse</item>
         <item name="cornerRadius">16dp</item>
         <item name="android:textStyle">bold</item>
@@ -152,8 +152,8 @@
         <item name="android:paddingStart">17.5dp</item>
         <item name="android:paddingEnd">17.5dp</item>
         <item name="android:elevation">0dp</item>
-        <item name="strokeColor">?colorPrimary</item>
-        <item name="android:textColor">?colorPrimary</item>
+        <item name="strokeColor">?colorAccent</item>
+        <item name="android:textColor">?colorAccent</item>
         <item name="elevation">0dp</item>
         <item name="cornerRadius">16dp</item>
         <item name="android:textStyle">bold</item>

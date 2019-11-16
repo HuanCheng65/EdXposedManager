@@ -46,9 +46,14 @@
             android:layout_alignStart="@id/content_card"
             android:textSize="12sp"
             android:id="@+id/downloadStatus"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:background="@drawable/bg_round"
+            android:padding="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:visibility="gone" />
         <TextView
             android:textSize="12sp"

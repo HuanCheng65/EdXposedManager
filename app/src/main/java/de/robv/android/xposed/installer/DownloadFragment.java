@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -25,6 +27,8 @@ import android.widget.CursorAdapter;
 import android.widget.FilterQueryProvider;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntRange;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
@@ -381,6 +385,13 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
             return mInflater.inflate(R.layout.list_item_download, parent, false);
         }
 
+        private int alphaColor(@ColorInt int color, @IntRange(from = 0, to = 255) int alpha) {
+            int red = Color.red(color);
+            int green = Color.green(color);
+            int blue = Color.blue(color);
+            return Color.argb(alpha, red, green, blue);
+        }
+
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             String title = cursor.getString(OverviewColumnsIndexes.TITLE);
@@ -409,12 +420,16 @@ public class DownloadFragment extends Fragment implements RepoListener, ModuleLi
                 txtStatus.setText(mContext.getString(
                         R.string.download_status_update_available,
                         installedVersion, latestVersion));
-                txtStatus.setTextColor(getResources().getColor(R.color.download_status_update_available));
+                int color = getResources().getColor(R.color.download_status_update_available);
+                txtStatus.setTextColor(color);
+                txtStatus.setBackgroundTintList(ColorStateList.valueOf(alphaColor(color, 50)));
                 txtStatus.setVisibility(View.VISIBLE);
             } else if (isInstalled) {
                 txtStatus.setText(mContext.getString(
                         R.string.download_status_installed, installedVersion));
-                txtStatus.setTextColor(ThemeUtil.getThemeColor(mContext, R.attr.download_status_installed));
+                int color = ThemeUtil.getThemeColor(mContext, R.attr.download_status_installed);
+                txtStatus.setTextColor(color);
+                txtStatus.setBackgroundTintList(ColorStateList.valueOf(alphaColor(color, 50)));
                 txtStatus.setVisibility(View.VISIBLE);
             } else {
                 txtStatus.setVisibility(View.GONE);

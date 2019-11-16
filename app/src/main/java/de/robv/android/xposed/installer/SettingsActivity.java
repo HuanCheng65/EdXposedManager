@@ -21,6 +21,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.preference.ListPreference;
@@ -30,6 +31,7 @@ import androidx.preference.SwitchPreference;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.afollestad.materialdialogs.folderselector.FolderChooserDialog;
+import com.huanchengfly.edxp.interfaces.ButtonCallback;
 import com.solohsu.android.edxp.manager.fragment.BasePreferenceFragment;
 
 import org.meowcat.edxposed.manager.R;
@@ -181,6 +183,8 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
         };
 
         private Preference downloadLocation;
+        private Preference stopVerboseLog;
+        private Preference stopLog;
 
         public SettingsFragment() {
         }
@@ -210,7 +214,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.prefs);
 
-            File flagFile = null;
+            File flagFile;
 
             PreferenceGroup groupApp = findPreference("group_app");
             PreferenceGroup lookFeel = findPreference("look_and_feel");
@@ -218,6 +222,8 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
             Preference headsUp = findPreference("heads_up");
             Preference colors = findPreference("colors");
             downloadLocation = findPreference("download_location");
+            stopVerboseLog = findPreference("stop_verbose_log");
+            stopLog = findPreference("stop_log");
 
             ListPreference customIcon = findPreference("custom_icon");
             navBar = findPreference("nav_bar");
@@ -521,8 +527,45 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                         .initialPath(XposedApp.getDownloadPath())
                         .show();
             }
+//          } else if (preference.getKey().equals(stopVerboseLog.getKey())) {
+//                new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        areYouSure(R.string.install_warning, new MaterialDialog.ButtonCallback() {
+//                            @Override
+//                            public void onPositive(MaterialDialog dialog) {
+//                                super.onPositive(dialog);
+//                                Shell.su("pkill -f EdXposed:V").exec();
+//                            }
+//                        });
+//                    }
+//                };
+//            } else if (preference.getKey().equals(stopLog.getKey())) {
+//                new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        areYouSure(R.string.install_warning, new MaterialDialog.ButtonCallback() {
+//                            @Override
+//                            public void onPositive(MaterialDialog dialog) {
+//                                super.onPositive(dialog);
+//                                Shell.su("pkill -f EdXposed-Bridge:V").exec();
+//                            }
+//                        });
+//                    }
+//                };
+//            }
 
             return true;
+        }
+
+        private void areYouSure(int contentTextId, ButtonCallback yesHandler) {
+            new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
+                    .setTitle(R.string.areyousure)
+                    .setMessage(contentTextId)
+                    .setIconAttribute(android.R.attr.alertDialogIcon)
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> yesHandler.onPositive(dialog))
+                    .setNegativeButton(android.R.string.no, (dialog, which) -> yesHandler.onNegative(dialog))
+                    .show();
         }
 
         private boolean checkPermissions() {
