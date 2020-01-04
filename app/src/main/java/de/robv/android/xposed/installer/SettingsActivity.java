@@ -1,8 +1,6 @@
 package de.robv.android.xposed.installer;
 
 import android.Manifest;
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -21,17 +19,14 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceGroup;
 import androidx.preference.SwitchPreference;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.afollestad.materialdialogs.folderselector.FolderChooserDialog;
-import com.huanchengfly.edxp.interfaces.ButtonCallback;
 import com.solohsu.android.edxp.manager.fragment.BasePreferenceFragment;
 
 import org.meowcat.edxposed.manager.R;
@@ -92,6 +87,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int color) {
+        /*
         int colorFrom = XposedApp.getColor(this);
 
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, color);
@@ -112,7 +108,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
         });
         colorAnimation.setDuration(750);
         colorAnimation.start();
-
+        */
         if (!dialog.isAccentMode()) {
             XposedApp.getPreferences().edit().putInt("colors", color).apply();
         }
@@ -141,7 +137,8 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                 Color.parseColor("#FF5722"),
                 Color.parseColor("#795548"),
                 Color.parseColor("#9E9E9E"),
-                Color.parseColor("#607D8B")
+                Color.parseColor("#607D8B"),
+                Color.parseColor("#FA7298")
         };
         static final File mDisableResourcesFlag = new File(XposedApp.BASE_DIR + "conf/disable_resources");
         static final File mDynamicModulesFlag = new File(XposedApp.BASE_DIR + "conf/dynamicmodules");
@@ -189,13 +186,6 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
         public SettingsFragment() {
         }
 
-        @Override
-        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
-            setDivider(new ColorDrawable(Color.TRANSPARENT));
-            setDividerHeight(DisplayUtil.dp2px(view.getContext(), 1));
-        }
-
         @SuppressLint({"WorldReadableFiles", "WorldWriteableFiles"})
         static void setFilePermissionsFromMode(String name, int mode) {
             int perms = FileUtils.S_IRUSR | FileUtils.S_IWUSR
@@ -209,6 +199,13 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
             FileUtils.setPermissions(name, perms, -1, -1);
         }
 
+        @Override
+        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            setDivider(new ColorDrawable(Color.TRANSPARENT));
+            setDividerHeight(DisplayUtil.dp2px(view.getContext(), 1));
+        }
+
         @SuppressLint({"ObsoleteSdkInt", "WorldReadableFiles"})
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -216,8 +213,8 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
 
             File flagFile;
 
-            PreferenceGroup groupApp = findPreference("group_app");
-            PreferenceGroup lookFeel = findPreference("look_and_feel");
+            //PreferenceGroup groupApp = findPreference("group_app");
+            //PreferenceGroup lookFeel = findPreference("look_and_feel");
 
             Preference headsUp = findPreference("heads_up");
             Preference colors = findPreference("colors");
@@ -228,10 +225,12 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
             ListPreference customIcon = findPreference("custom_icon");
             navBar = findPreference("nav_bar");
 
+            /*
             if (Build.VERSION.SDK_INT < 21) {
                 Objects.requireNonNull(groupApp).removePreference(Objects.requireNonNull(headsUp));
                 Objects.requireNonNull(lookFeel).removePreference(navBar);
             }
+            */
 
             findPreference("release_type_global").setOnPreferenceChangeListener((preference, newValue) -> {
                 RepoLoader.getInstance().setReleaseTypeGlobal((String) newValue);
@@ -469,7 +468,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                 return (enabled == finalFlagFile.exists());
             });
 
-            //Objects.requireNonNull(colors).setOnPreferenceClickListener(this);
+            Objects.requireNonNull(colors).setOnPreferenceClickListener(this);
             Objects.requireNonNull(customIcon).setOnPreferenceChangeListener(iconChange);
             downloadLocation.setOnPreferenceClickListener(this);
 
@@ -478,19 +477,12 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
         @Override
         public void onResume() {
             super.onResume();
-
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-
-            /*
-            if (Build.VERSION.SDK_INT >= 21)
-                Objects.requireNonNull(getActivity()).getWindow().setStatusBarColor(darkenColor(XposedApp.getColor(getActivity()), 0.85f));
-                */
         }
 
         @Override
         public void onPause() {
             super.onPause();
-
             getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
         }
 
@@ -512,7 +504,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
             if (preference.getKey().equals("colors")) {
                 new ColorChooserDialog.Builder(act, R.string.choose_color)
                         .backButton(R.string.back)
-                        .allowUserColorInput(false)
+                        .allowUserColorInput(true)
                         .customColors(PRIMARY_COLORS, null)
                         .doneButton(android.R.string.ok)
                         .preselect(XposedApp.getColor(act)).show();
@@ -558,6 +550,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
             return true;
         }
 
+        /*
         private void areYouSure(int contentTextId, ButtonCallback yesHandler) {
             new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
                     .setTitle(R.string.areyousure)
@@ -567,6 +560,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                     .setNegativeButton(android.R.string.no, (dialog, which) -> yesHandler.onNegative(dialog))
                     .show();
         }
+        */
 
         private boolean checkPermissions() {
             if (Build.VERSION.SDK_INT < 23) return false;

@@ -11,28 +11,28 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:textColor="?android:textColorSecondary"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?android:textColorSecondary" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Button.Dense"
             android:id="@+id/btnDownload"
+            style="@style/Widget.Button.Dense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="30dip"
             android:text="@string/download_view_download" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Button.Flat.Dense"
             android:id="@+id/save"
+            style="@style/Widget.Button.Flat.Dense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="30dip"
             android:text="@string/save" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Button.Flat.Dense"
             android:id="@+id/btnDownloadCancel"
+            style="@style/Widget.Button.Flat.Dense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="30dip"
@@ -41,8 +41,8 @@
             tools:ignore="ButtonOrder" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Button.Flat.Dense"
             android:id="@+id/btnRemove"
+            style="@style/Widget.Button.Flat.Dense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="30dip"
@@ -51,8 +51,8 @@
             android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.Button.Dense"
             android:id="@+id/btnInstall"
+            style="@style/Widget.Button.Dense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="30dip"

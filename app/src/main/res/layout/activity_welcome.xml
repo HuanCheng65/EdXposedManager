@@ -71,9 +71,9 @@
         android:layout_height="wrap_content"
         android:background="?attr/color_bottom_nav"
         app:elevation="4dp"
-        app:labelVisibilityMode="unlabeled"
         app:itemIconTint="@drawable/bottom_item_icon_tint_list"
         app:itemTextColor="?attr/colorAccent"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>

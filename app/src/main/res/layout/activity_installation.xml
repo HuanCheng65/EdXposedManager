@@ -36,9 +36,9 @@
                 android:alpha="0.03"
                 android:scaleType="fitStart"
                 android:visibility="gone"
+                tools:ignore="ContentDescription"
                 tools:src="@drawable/ic_check_circle"
-                tools:visibility="visible"
-                tools:ignore="ContentDescription" />
+                tools:visibility="visible" />
 
         </androidx.cardview.widget.CardView>
 
@@ -83,9 +83,9 @@
             android:layout_alignParentRight="true"
             android:gravity="start|center_vertical"
             android:visibility="gone"
+            tools:ignore="RtlHardcoded"
             tools:text="Reboot (15)"
-            tools:visibility="visible"
-            tools:ignore="RtlHardcoded" />
+            tools:visibility="visible" />
 
     </RelativeLayout>
 

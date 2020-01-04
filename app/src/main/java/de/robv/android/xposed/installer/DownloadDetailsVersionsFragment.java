@@ -101,10 +101,15 @@ public class DownloadDetailsVersionsFragment extends ListFragment {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         int sixDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, metrics);
         int eightDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, metrics);
+        /*
         getListView().setDivider(null);
         getListView().setDividerHeight(sixDp);
+        */
         getListView().setPadding(eightDp, eightDp, eightDp, eightDp);
         getListView().setClipToPadding(false);
+
+        getListView().setDivider(mActivity.getDrawable(R.drawable.drawable_divider));
+        getListView().setDividerHeight(DisplayUtil.dp2px(mActivity, 1));
     }
 
     @Override
@@ -138,7 +143,7 @@ public class DownloadDetailsVersionsFragment extends ListFragment {
     public static class DownloadModuleCallback implements DownloadsUtil.DownloadFinishedCallback {
         private final ModuleVersion moduleVersion;
 
-        public DownloadModuleCallback(ModuleVersion moduleVersion) {
+        DownloadModuleCallback(ModuleVersion moduleVersion) {
             this.moduleVersion = moduleVersion;
         }
 
@@ -192,7 +197,7 @@ public class DownloadDetailsVersionsFragment extends ListFragment {
         private final int mColorUpdateAvailable;
         private final String mTextInstalled;
         private final String mTextUpdateAvailable;
-        private final int mInstalledVersionCode;
+        private final long mInstalledVersionCode;
 
         public VersionsAdapter(Context context, InstalledModule installed) {
             super(context, R.layout.list_item_version);

@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="?android:textColorPrimary"
             android:textStyle="bold" />
 
         <TextView
@@ -26,13 +27,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="italic" />
+            android:textColor="?android:textColorPrimary" />
 
         <TextView
             android:id="@+id/download_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?android:textColorSecondary" />
 
         <LinearLayout
             android:id="@+id/download_moreinfo_container"

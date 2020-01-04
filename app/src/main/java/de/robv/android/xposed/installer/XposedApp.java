@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -27,26 +28,24 @@ import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.meowcat.edxposed.manager.BuildConfig;
 import org.meowcat.edxposed.manager.R;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import de.robv.android.xposed.installer.receivers.PackageChangeReceiver;
 import de.robv.android.xposed.installer.util.AssetUtil;
@@ -59,15 +58,15 @@ import de.robv.android.xposed.installer.util.RepoLoader;
 @SuppressLint("Registered")
 public class XposedApp extends Application implements ActivityLifecycleCallbacks {
     public static final String TAG = "EdXposedManager";
+    public static final String ENABLED_MODULES_LIST_FILE = BASE_DIR + "conf/enabled_modules.list";
     @SuppressLint("SdCardPath")
     private static final String BASE_DIR_LEGACY = "/data/data/" + BuildConfig.APPLICATION_ID + "/";
     public static final String BASE_DIR = Build.VERSION.SDK_INT >= 24
             ? "/data/user_de/0/" + BuildConfig.APPLICATION_ID + "/" : BASE_DIR_LEGACY;
     private static final File EDXPOSED_PROP_FILE = new File("/system/framework/edconfig.jar");
-    public static final String ENABLED_MODULES_LIST_FILE = BASE_DIR + "conf/enabled_modules.list";
     public static int WRITE_EXTERNAL_PERMISSION = 69;
     public static int[] iconsValues = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher_dvdandroid, R.mipmap.ic_launcher_hjmodi, R.mipmap.ic_launcher_rovo, R.mipmap.ic_launcher_cornie, R.mipmap.ic_launcher_rovo_old, R.mipmap.ic_launcher_staol};
-    private static Pattern PATTERN_APP_PROCESS_VERSION = Pattern.compile(".*with Xposed support \\(version (.+)\\).*");
+    //private static Pattern PATTERN_APP_PROCESS_VERSION = Pattern.compile(".*with Xposed support \\(version (.+)\\).*");
     @SuppressLint("StaticFieldLeak")
     private static XposedApp mInstance = null;
     private static Thread mUiThread;
@@ -102,13 +101,14 @@ public class XposedApp extends Application implements ActivityLifecycleCallbacks
     }
 
     public static Integer getXposedVersion() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            return getActiveXposedVersion();
-        } else {
-            return getInstalledAppProcessVersion();
-        }
+        //if (Build.VERSION.SDK_INT >= 21) {
+        return getActiveXposedVersion();
+        //} else {
+        //    return getInstalledAppProcessVersion();
+        //}
     }
 
+    /*
     private static int getInstalledAppProcessVersion() {
         try {
             return getAppProcessVersion(new FileInputStream("/system/bin/app_process"));
@@ -133,6 +133,7 @@ public class XposedApp extends Application implements ActivityLifecycleCallbacks
         is.close();
         return 0;
     }
+    */
 
     // This method is hooked by XposedBridge to return the current version
     @SuppressWarnings({"NumericOverflow", "divzero"})
@@ -154,6 +155,15 @@ public class XposedApp extends Application implements ActivityLifecycleCallbacks
 
     public static SharedPreferences getPreferences() {
         return mInstance.mPref;
+    }
+
+    public static @ColorInt
+    int getColorByAttr(Context context, @AttrRes int attr, @ColorRes int defaultColor) {
+        int[] attrs = new int[]{attr};
+        TypedArray typedArray = context.obtainStyledAttributes(attrs);
+        int color = typedArray.getColor(0, context.getResources().getColor(defaultColor));
+        typedArray.recycle();
+        return color;
     }
 
     public static int getColor(Context context) {
@@ -300,6 +310,7 @@ public class XposedApp extends Application implements ActivityLifecycleCallbacks
 
         if (Build.VERSION.SDK_INT >= 24) {
             try {
+                @SuppressLint("SoonBlockedPrivateApi")
                 Method deleteDir = FileUtils.class.getDeclaredMethod("deleteContentsAndDir", File.class);
                 deleteDir.invoke(null, new File(BASE_DIR_LEGACY, "bin"));
                 deleteDir.invoke(null, new File(BASE_DIR_LEGACY, "conf"));

@@ -127,8 +127,6 @@ public class WelcomeActivity extends XposedBaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        //StatusBarUtil.setColor(this, darkenColor(XposedApp.getColor(this), 1f));
-        //mDrawerLayout.setStatusBarBackgroundColor(darkenColor(XposedApp.getColor(this), 0.85f));
         XposedApp.getPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 

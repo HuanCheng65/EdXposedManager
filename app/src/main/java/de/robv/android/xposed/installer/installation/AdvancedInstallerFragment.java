@@ -97,7 +97,8 @@ public class AdvancedInstallerFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //mTabLayout.setBackgroundColor(XposedApp.getColor(Objects.requireNonNull(getContext())));
+        mTabLayout.setSelectedTabIndicatorColor(XposedApp.getColor(Objects.requireNonNull(getContext())));
+        mTabLayout.setTabTextColors(XposedApp.getColorByAttr(Objects.requireNonNull(getContext()), R.attr.color_unselected, R.color.color_unselected_light),XposedApp.getColor(Objects.requireNonNull(getContext())));
     }
 
     @Override
@@ -233,6 +234,18 @@ public class AdvancedInstallerFragment extends Fragment {
                     reboot("download");
                 }
                 break;
+            case R.id.reboot_edl:
+                if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
+                    areYouSure(R.string.reboot_download, new ButtonCallback() {
+                        @Override
+                        public void onPositive(DialogInterface dialog) {
+                            reboot("edl");
+                        }
+                    });
+                } else {
+                    reboot("edl");
+                }
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -286,7 +299,7 @@ public class AdvancedInstallerFragment extends Fragment {
 
         List<String> messages = new LinkedList<>();
 
-        String command = "reboot";
+        String command = "/system/bin/svc power reboot";
         if (mode != null) {
             command += " " + mode;
             if (mode.equals("recovery"))
@@ -294,7 +307,7 @@ public class AdvancedInstallerFragment extends Fragment {
                 mRootUtil.executeWithBusybox("touch /cache/recovery/boot", messages);
         }
 
-        if (mRootUtil.executeWithBusybox(command, messages) != 0) {
+        if (mRootUtil.execute(command, messages) != 0) {
             messages.add("");
             messages.add(getString(R.string.reboot_failed));
             showAlert(TextUtils.join("\n", messages).trim());
@@ -314,11 +327,8 @@ public class AdvancedInstallerFragment extends Fragment {
         protected Boolean doInBackground(Void... params) {
             try {
                 String originalJson = JSONUtils.getFileContent(JSONUtils.JSON_LINK);
-                String newJson = JSONUtils.listZip();
 
-                String jsonString = originalJson.replace("%XPOSED_ZIP%", newJson);
-
-                final JSONUtils.XposedJson xposedJson = new Gson().fromJson(jsonString, JSONUtils.XposedJson.class);
+                final JSONUtils.XposedJson xposedJson = new Gson().fromJson(originalJson, JSONUtils.XposedJson.class);
 
                 List<XposedTab> tabs = Stream.of(xposedJson.tabs)
                         .filter(value -> value.sdks.contains(Build.VERSION.SDK_INT)).toList();
@@ -358,7 +368,7 @@ public class AdvancedInstallerFragment extends Fragment {
 
                 SharedPreferences prefs;
                 try {
-                    prefs = getContext().getSharedPreferences(Objects.requireNonNull(getContext()).getPackageName() + "_preferences", MODE_PRIVATE);
+                    prefs = Objects.requireNonNull(getContext()).getSharedPreferences(Objects.requireNonNull(getContext()).getPackageName() + "_preferences", MODE_PRIVATE);
 
                     prefs.edit().putString("changelog", newApkChangelog).apply();
                 } catch (NullPointerException ignored) {

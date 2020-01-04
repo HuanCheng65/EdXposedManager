@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -44,8 +43,8 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="4dip"
-            android:layout_marginRight="4dip"
+            android:layout_marginStart="4dip"
+            android:layout_marginEnd="4dip"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -61,21 +60,22 @@
                     android:layout_weight="1"
                     android:singleLine="false"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textIsSelectable="false" />
+                    android:textColor="?android:textColorPrimary"
+                    android:textIsSelectable="false"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/version_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dip"
-                    android:layout_marginLeft="4dip"
                     android:ellipsize="marquee"
                     android:gravity="end"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:maxWidth="100dp"
                     android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@android:color/tertiary_text_dark"
+                    android:textColor="?android:textColorSecondary"
                     android:textIsSelectable="false"
                     tools:ignore="RtlHardcoded" />
 
@@ -88,6 +88,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:textColorPrimary"
                 android:textIsSelectable="false" />
 
             <LinearLayout
@@ -95,21 +96,21 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tvTitleInstallTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/install_time" />
+                    android:text="@string/install_time"
+                    android:textColor="?android:textColorSecondary" />
 
                 <TextView
                     android:id="@+id/tvInstallTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
                     android:layout_marginStart="4dip"
-                    android:layout_marginLeft="4dip"
                     android:ellipsize="marquee"
                     android:gravity="end"
                     android:marqueeRepeatLimit="marquee_forever"
+                    android:textColor="?android:textColorSecondary"
                     tools:ignore="RtlHardcoded" />
 
             </LinearLayout>
@@ -119,21 +120,21 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tvTitleUpdateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/update_time" />
+                    android:text="@string/update_time"
+                    android:textColor="?android:textColorSecondary" />
 
                 <TextView
                     android:id="@+id/tvUpdateTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
                     android:layout_marginStart="4dip"
-                    android:layout_marginLeft="4dip"
                     android:ellipsize="marquee"
                     android:gravity="end"
                     android:marqueeRepeatLimit="marquee_forever"
+                    android:textColor="?android:textColorSecondary"
                     tools:ignore="RtlHardcoded" />
 
             </LinearLayout>
@@ -142,6 +143,7 @@
 
         <Switch
             android:id="@+id/checkbox"
+            style="@style/Widget.Switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

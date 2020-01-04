@@ -63,8 +63,12 @@
         <item name="android:textColorSecondary">@color/color_text_secondary_light</item>
         <item name="color_icon">?android:attr/textColorSecondary</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:windowBackground">@color/background_material_light</item>
-        <item name="sticky_header_background">@color/background_material_light</item>
+        <item name="android:windowBackground" tools:ignore="PrivateResource">
+            @color/background_material_light
+        </item>
+        <item name="sticky_header_background" tools:ignore="PrivateResource">
+            @color/background_material_light
+        </item>
         <item name="list_download_item_color">@color/transparent</item>
         <item name="background_card">@drawable/background_card_light</item>
         <item name="background_card_pressed">@drawable/background_card_pressed_light</item>
@@ -85,8 +89,12 @@
         <item name="android:textColorPrimary">@color/color_text_dark</item>
         <item name="android:textColorSecondary">@color/color_text_secondary_dark</item>
         <item name="color_icon">?android:attr/textColorSecondary</item>
-        <item name="android:windowBackground">@color/background_material_dark</item>
-        <item name="sticky_header_background">@color/background_material_dark</item>
+        <item name="android:windowBackground" tools:ignore="PrivateResource">
+            @color/background_material_dark
+        </item>
+        <item name="sticky_header_background" tools:ignore="PrivateResource">
+            @color/background_material_dark
+        </item>
         <item name="list_download_item_color">@color/transparent</item>
         <item name="background_card">@drawable/background_card_dark</item>
         <item name="background_card_pressed">@drawable/background_card_pressed_dark</item>

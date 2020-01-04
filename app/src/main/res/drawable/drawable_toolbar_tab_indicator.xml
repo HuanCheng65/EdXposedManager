@@ -3,6 +3,6 @@
     <solid android:color="?attr/colorAccent" />
     <size android:height="2.2dp" />
     <corners
-        android:topRightRadius="5dp"
-        android:topLeftRadius="5dp" />
+        android:topLeftRadius="5dp"
+        android:topRightRadius="5dp" />
 </shape>

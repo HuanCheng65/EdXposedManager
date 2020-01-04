@@ -8,13 +8,13 @@
     android:paddingEnd="16dp">
 
     <FrameLayout
-        android:padding="8dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_round"
         android:backgroundTint="@color/amber_A700_trans"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:padding="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -27,17 +27,16 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:src="@drawable/ic_two_tone_warning"
                 android:tint="@color/amber_A700"
                 tools:ignore="ContentDescription,RtlHardcoded" />
 
             <TextView
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@string/xposed_not_active"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/amber_A700" />

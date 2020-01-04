@@ -1,6 +1,7 @@
 package de.robv.android.xposed.installer;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import de.robv.android.xposed.installer.repo.Module;
 import de.robv.android.xposed.installer.repo.ModuleVersion;
@@ -50,6 +52,7 @@ import static de.robv.android.xposed.installer.XposedApp.WRITE_EXTERNAL_PERMISSI
 public class ModulesBookmark extends XposedBaseActivity {
 
     private static RepoLoader mRepoLoader;
+    @SuppressLint("StaticFieldLeak")
     private static View container;
 
     @Override
@@ -63,12 +66,7 @@ public class ModulesBookmark extends XposedBaseActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> finish());
 
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
@@ -99,7 +97,7 @@ public class ModulesBookmark extends XposedBaseActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            mBookmarksPref = getActivity().getSharedPreferences("bookmarks", MODE_PRIVATE);
+            mBookmarksPref = Objects.requireNonNull(getActivity()).getSharedPreferences("bookmarks", MODE_PRIVATE);
             mBookmarksPref.registerOnSharedPreferenceChangeListener(this);
         }
 
@@ -109,12 +107,6 @@ public class ModulesBookmark extends XposedBaseActivity {
 
             if (changed)
                 getModules();
-
-            /*
-            if (Build.VERSION.SDK_INT >= 21) {
-                getActivity().getWindow().setStatusBarColor(darkenColor(XposedApp.getColor(getActivity()), 0.85f));
-            }
-            */
         }
 
         @Override

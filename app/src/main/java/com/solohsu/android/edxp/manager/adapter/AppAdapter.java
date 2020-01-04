@@ -69,11 +69,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private void loadApps() {
-        fullList = pm.getInstalledApplications(0);
+        fullList = pm.getInstalledApplications(PackageManager.GET_META_DATA);
         if (!XposedApp.getPreferences().getBoolean("show_modules", true)) {
             List<ApplicationInfo> rmList = new ArrayList<>();
             for (ApplicationInfo info : fullList) {
-                if (info.metaData != null && info.metaData.containsKey("xposedmodule")) {
+                if (info.metaData != null && info.metaData.containsKey("xposedmodule") || AppHelper.FORCE_WHITE_LIST_MODULE.contains(info.packageName)) {
                     rmList.add(info);
                 }
             }

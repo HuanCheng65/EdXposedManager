@@ -16,25 +16,25 @@
             android:background="?attr/color_app_bar"
             android:backgroundTint="?attr/color_app_bar"
             android:elevation="@dimen/toolbar_elevation"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
-            app:theme="@style/Theme.XposedInstaller.Toolbar"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            app:theme="@style/Theme.XposedInstaller.Toolbar" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/color_app_bar"
-            app:tabBackground="?attr/color_app_bar"
             android:elevation="0dp"
             android:minHeight="?attr/actionBarSize"
-            app:tabIndicatorColor="?attr/colorAccent"
+            app:tabBackground="?attr/color_app_bar"
             app:tabIndicator="@drawable/drawable_toolbar_tab_indicator"
-            app:tabMode="scrollable"
+            app:tabIndicatorColor="?attr/colorAccent"
             app:tabIndicatorFullWidth="false"
-            app:tabTextColor="?attr/color_unselected"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="?attr/colorAccent"
-            app:tabTextAppearance="@style/TextAppearance.Design.Tab" />
+            app:tabTextAppearance="@style/TextAppearance.Design.Tab"
+            app:tabTextColor="?attr/color_unselected" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

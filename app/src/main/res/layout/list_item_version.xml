@@ -1,80 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginLeft="8dip"
+    android:layout_marginStart="8dip"
     android:layout_marginTop="3dip"
-    android:layout_marginRight="8dip"
+    android:layout_marginEnd="8dip"
     android:layout_marginBottom="3dip"
-    android:elevation="2dip"
+    android:elevation="0dip"
     android:foreground="?selectableItemBackground"
     android:minHeight="?android:attr/listPreferredItemHeight"
     card_view:cardBackgroundColor="?attr/list_download_item_color"
-    card_view:cardCornerRadius="@dimen/card_corner_radius">
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dip">
+        android:padding="8dip"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtVersion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="?android:textColorPrimary"
                     android:textIsSelectable="false" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:orientation="vertical"
-                tools:ignore="RtlHardcoded">
 
                 <TextView
                     android:id="@+id/txtRelType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_round"
+                    android:padding="4dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:textColorSecondary"
                     android:textIsSelectable="false"
-                    android:textStyle="italic" />
+                    android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/txtUploadDate"
+                    android:id="@+id/txtStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_round"
+                    android:padding="4dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorTertiary"
-                    android:textIsSelectable="false"
-                    android:textStyle="italic" />
+                    android:textSize="12sp" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtUploadDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:textColorSecondary"
+                android:textIsSelectable="false" />
         </LinearLayout>
 
         <de.robv.android.xposed.installer.widget.DownloadView
@@ -89,13 +97,15 @@
             android:layout_marginTop="8dp"
             android:text="@string/changes"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?android:textColorSecondary"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtChanges"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?android:textColorSecondary" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -97,6 +97,7 @@ import static de.robv.android.xposed.installer.XposedApp.createFolder;
 
 public class ModulesFragment extends Fragment implements ModuleListener, AdapterView.OnItemClickListener {
     public static final String SETTINGS_CATEGORY = "de.robv.android.xposed.category.MODULE_SETTINGS";
+    public static final String TAG = "Modules";
     static final String XPOSED_REPO_LINK = "http://repo.xposed.info/module/%s";
     static final String PLAY_STORE_PACKAGE = "com.android.vending";
     static final String PLAY_STORE_LINK = "https://play.google.com/store/apps/details?id=%s";
@@ -356,7 +357,7 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
 
         List<String> messages = new LinkedList<>();
 
-        String command = "reboot";
+        String command = "/system/bin/svc power reboot";
         if (mode != null) {
             command += " " + mode;
             if (mode.equals("recovery"))
@@ -364,15 +365,13 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
                 mRootUtil.executeWithBusybox("touch /cache/recovery/boot", messages);
         }
 
-        if (mRootUtil.executeWithBusybox(command, messages) != 0) {
+        if (mRootUtil.execute(command, messages) != 0) {
             messages.add("");
             messages.add(getString(R.string.reboot_failed));
             showAlert(TextUtils.join("\n", messages).trim());
         }
         AssetUtil.removeBusybox();
     }
-
-    public static final String TAG = "Modules";
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -437,6 +436,18 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
                     });
                 } else {
                     reboot("download");
+                }
+                break;
+            case R.id.reboot_edl:
+                if (XposedApp.getPreferences().getBoolean("confirm_reboots", true)) {
+                    areYouSure(R.string.reboot_download, new ButtonCallback() {
+                        @Override
+                        public void onPositive(DialogInterface dialog) {
+                            reboot("edl");
+                        }
+                    });
+                } else {
+                    reboot("edl");
                 }
                 break;
         }
@@ -768,6 +779,10 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
         }
     }
 
+    private boolean lowercaseContains(String s, CharSequence filter) {
+        return !TextUtils.isEmpty(s) && s.toLowerCase().contains(filter);
+    }
+
     private class ModuleAdapter extends ArrayAdapter<InstalledModule> {
         ModuleAdapter(Context context) {
             super(context, R.layout.list_item_module, R.id.title);
@@ -865,10 +880,6 @@ public class ModulesFragment extends Fragment implements ModuleListener, Adapter
             }
             return view;
         }
-    }
-
-    private boolean lowercaseContains(String s, CharSequence filter) {
-        return !TextUtils.isEmpty(s) && s.toLowerCase().contains(filter);
     }
 
     class ApplicationFilter extends Filter {

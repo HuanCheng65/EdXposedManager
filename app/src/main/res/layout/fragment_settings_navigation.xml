@@ -1,21 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.huanchengfly.edxp.fragments.SettingsNavigationFragment">
 
     <com.google.android.material.navigation.NavigationView
-        app:itemHorizontalPadding="24dp"
-        app:itemIconPadding="16dp"
-        app:elevation="0dp"
-        app:itemBackground="@color/transparent"
-        app:itemIconTint="?attr/color_icon"
-        app:itemTextColor="?android:textColorPrimary"
-        app:menu="@menu/nav"
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        app:itemBackground="@color/transparent"
+        app:itemHorizontalPadding="24dp"
+        app:itemIconPadding="16dp"
+        app:itemIconTint="?attr/color_icon"
+        app:itemTextColor="?android:textColorPrimary"
+        app:menu="@menu/nav" />
 
 </LinearLayout>

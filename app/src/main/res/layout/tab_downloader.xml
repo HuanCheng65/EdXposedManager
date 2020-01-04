@@ -46,8 +46,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/update_download_list"
-                    android:textSize="16sp"
-                    android:textColor="?android:textColorSecondary" />
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="16sp" />
 
                 <ProgressBar
                     android:id="@+id/progress"

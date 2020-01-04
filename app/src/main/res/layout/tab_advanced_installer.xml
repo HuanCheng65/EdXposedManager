@@ -10,16 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/color_app_bar"
-        app:tabBackground="@color/transparent"
         android:elevation="0dp"
         android:minHeight="?attr/actionBarSize"
-        app:tabIndicatorColor="?attr/colorAccent"
+        app:tabBackground="@color/transparent"
         app:tabIndicator="@drawable/drawable_toolbar_tab_indicator"
-        app:tabMode="scrollable"
+        app:tabIndicatorColor="?attr/colorAccent"
         app:tabIndicatorFullWidth="false"
-        app:tabTextColor="?attr/color_unselected"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="?attr/colorAccent"
-        app:tabTextAppearance="@style/TextAppearance.Design.Tab" />
+        app:tabTextAppearance="@style/TextAppearance.Design.Tab"
+        app:tabTextColor="?attr/color_unselected" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"

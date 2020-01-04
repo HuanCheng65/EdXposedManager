@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Switch xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="NewApi"
     android:id="@android:id/switch_widget"
-    android:clickable="false"
-    android:focusable="false"
-    android:focusableInTouchMode="false"
+    style="@style/Widget.Switch"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    style="@style/Widget.Switch" />
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    tools:ignore="NewApi" />

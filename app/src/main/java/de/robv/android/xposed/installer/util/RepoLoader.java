@@ -64,7 +64,7 @@ public class RepoLoader {
         mInstance = this;
         mApp = XposedApp.getInstance();
         mPref = mApp.getSharedPreferences("repo", Context.MODE_PRIVATE);
-        DEFAULT_REPOSITORIES = XposedApp.getPreferences().getBoolean("custom_list", false) ? "http://edxp.meowcat.org/repo/full.xml.gz" : "https://dl-xda.xposed.info/repo/full.xml.gz";
+        DEFAULT_REPOSITORIES = XposedApp.getPreferences().getBoolean("custom_list", false) ? "http://edxp.meowcat.org/assets/full.xml.gz" : "https://dl-xda.xposed.info/repo/full.xml.gz";
         mModulePref = mApp.getSharedPreferences("module_settings", Context.MODE_PRIVATE);
         mConMgr = (ConnectivityManager) mApp.getSystemService(Context.CONNECTIVITY_SERVICE);
         mGlobalReleaseType = ReleaseType.fromString(XposedApp.getPreferences().getString("release_type_global", "stable"));
