@@ -1,11 +1,24 @@
 package com.huanchengfly.utils;
 
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 
+import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.annotation.FloatRange;
 
 public final class ColorUtils {
+    public static @ColorInt
+    int getColorByAttr(Context context, @AttrRes int attr, @ColorRes int defaultColor) {
+        int[] attrs = new int[]{attr};
+        TypedArray typedArray = context.obtainStyledAttributes(attrs);
+        int color = typedArray.getColor(0, context.getResources().getColor(defaultColor));
+        typedArray.recycle();
+        return color;
+    }
+
     public static int getDarkerColor(@ColorInt int color) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv); // convert to hsv

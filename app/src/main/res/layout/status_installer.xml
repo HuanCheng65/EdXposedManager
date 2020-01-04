@@ -19,7 +19,6 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
-            android:visibility="gone"
             app:cardBackgroundColor="?attr/list_download_item_color"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardElevation="@dimen/card_elevation"
@@ -73,6 +72,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:visibility="gone"
             android:id="@+id/disableView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -165,6 +165,7 @@
             app:cardBackgroundColor="?attr/list_download_item_color"
             app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardElevation="@dimen/card_elevation"
+            android:layout_marginBottom="8dp"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -516,7 +517,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/newVersion"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:textColor="@color/darker_green" />
+                            android:textColor="@color/download_status_update_available" />
 
                     </LinearLayout>
 

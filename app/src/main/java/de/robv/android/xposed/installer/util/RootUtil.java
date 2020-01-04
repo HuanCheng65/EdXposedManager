@@ -55,7 +55,6 @@ public class RootUtil {
             }
         }
     };
-    private final Shell.OnCommandResultListener mOpenListener = (commandCode, exitCode, output) -> mStdoutListener.onCommandResult(commandCode, exitCode);
     private final Shell.OnCommandLineListener mStderrListener = new Shell.OnCommandLineListener() {
         @Override
         public void onLine(String line) {
@@ -69,6 +68,7 @@ public class RootUtil {
             // Not called for STDERR listener.
         }
     };
+    private final Shell.OnCommandResultListener mOpenListener = (commandCode, exitCode, output) -> mStdoutListener.onCommandResult(commandCode, exitCode);
 
     private static String getEmulatedStorageVariable(String variable) {
         String result = System.getenv(variable);

@@ -72,8 +72,8 @@
         android:background="?attr/color_bottom_nav"
         app:elevation="4dp"
         app:itemIconTint="@drawable/bottom_item_icon_tint_list"
-        app:itemTextColor="?attr/colorAccent"
-        app:labelVisibilityMode="unlabeled"
+        app:itemTextColor="@drawable/bottom_item_icon_tint_list"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>

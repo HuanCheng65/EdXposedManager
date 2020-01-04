@@ -20,8 +20,6 @@
     <string name="nav_item_settings">Настройки</string>
     <string name="nav_item_support">Поддержка</string>
     <string name="nav_item_about">О приложении</string>
-    <string name="navigation_drawer_open">Открыть меню приложений</string>
-    <string name="navigation_drawer_close">Закрыть меню приложений</string>
 
     <!-- Installer tab -->
     <string name="install">Установить или обновить</string>
@@ -247,7 +245,6 @@
     <string name="skip_xposedminversion_check">Проверка версии EdXposed Framework</string>
     <string name="skip_xposedminversion_check_summ">Пропускать проверку минимальной версии EdXposed Framework для модулей</string>
 
-    <string name="compatibility">Совместимость</string>
     <string name="details">Детали</string>
     <string name="support_xda">Поддержка на форуме XDA</string>
     <string name="later">Позже</string>

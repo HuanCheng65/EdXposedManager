@@ -20,8 +20,6 @@
     <string name="nav_item_logs">詳細日誌</string>
     <string name="nav_item_logs_err">模組日誌</string>
     <string name="nav_item_about">關於</string>
-    <string name="navigation_drawer_open">開啟導航抽屜欄</string>
-    <string name="navigation_drawer_close">關閉導航抽屜欄</string>
 
     <!-- Installer tab -->
     <string name="install">安裝/更新</string>
@@ -247,7 +245,6 @@
     <string name="skip_xposedminversion_check">跳過模組檢查</string>
     <string name="skip_xposedminversion_check_summ">跳過針對模組的 \'EdXposed 最低版本\' 和 \'EdXposed 安裝狀態\' 檢查</string>
 
-    <string name="compatibility">相容性</string>
     <string name="details">詳細情形</string>
     <string name="support_xda">取得說明</string>
     <string name="later">稍後</string>

@@ -98,7 +98,7 @@ public class AdvancedInstallerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mTabLayout.setSelectedTabIndicatorColor(XposedApp.getColor(Objects.requireNonNull(getContext())));
-        mTabLayout.setTabTextColors(XposedApp.getColorByAttr(Objects.requireNonNull(getContext()), R.attr.color_unselected, R.color.color_unselected_light),XposedApp.getColor(Objects.requireNonNull(getContext())));
+        mTabLayout.setTabTextColors(XposedApp.getColorByAttr(Objects.requireNonNull(getContext()), R.attr.color_unselected, R.color.color_unselected_light), XposedApp.getColor(Objects.requireNonNull(getContext())));
     }
 
     @Override

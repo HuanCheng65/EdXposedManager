@@ -347,7 +347,6 @@ public final class ModuleUtil {
 //        public boolean isForwardLocked() {
 //            return (app.flags & FLAG_FORWARD_LOCK) != 0;
 //        }
-
         public String getAppName() {
             if (appName == null)
                 appName = app.loadLabel(mPm).toString();

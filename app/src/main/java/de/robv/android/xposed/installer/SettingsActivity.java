@@ -468,7 +468,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                 return (enabled == finalFlagFile.exists());
             });
 
-            Objects.requireNonNull(colors).setOnPreferenceClickListener(this);
+            //Objects.requireNonNull(colors).setOnPreferenceClickListener(this);
             Objects.requireNonNull(customIcon).setOnPreferenceChangeListener(iconChange);
             downloadLocation.setOnPreferenceClickListener(this);
 

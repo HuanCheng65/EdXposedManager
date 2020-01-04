@@ -34,6 +34,8 @@ import androidx.annotation.ColorRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.huanchengfly.utils.ColorUtils;
+
 import org.meowcat.edxposed.manager.BuildConfig;
 import org.meowcat.edxposed.manager.R;
 
@@ -58,11 +60,11 @@ import de.robv.android.xposed.installer.util.RepoLoader;
 @SuppressLint("Registered")
 public class XposedApp extends Application implements ActivityLifecycleCallbacks {
     public static final String TAG = "EdXposedManager";
-    public static final String ENABLED_MODULES_LIST_FILE = BASE_DIR + "conf/enabled_modules.list";
     @SuppressLint("SdCardPath")
     private static final String BASE_DIR_LEGACY = "/data/data/" + BuildConfig.APPLICATION_ID + "/";
     public static final String BASE_DIR = Build.VERSION.SDK_INT >= 24
             ? "/data/user_de/0/" + BuildConfig.APPLICATION_ID + "/" : BASE_DIR_LEGACY;
+    public static final String ENABLED_MODULES_LIST_FILE = BASE_DIR + "conf/enabled_modules.list";
     private static final File EDXPOSED_PROP_FILE = new File("/system/framework/edconfig.jar");
     public static int WRITE_EXTERNAL_PERMISSION = 69;
     public static int[] iconsValues = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher_dvdandroid, R.mipmap.ic_launcher_hjmodi, R.mipmap.ic_launcher_rovo, R.mipmap.ic_launcher_cornie, R.mipmap.ic_launcher_rovo_old, R.mipmap.ic_launcher_staol};
@@ -191,8 +193,8 @@ public class XposedApp extends Application implements ActivityLifecycleCallbacks
             if (getPreferences().getBoolean("nav_bar", false)) {
                 activity.getWindow().setNavigationBarColor(darkenColor(color, 0.85f));
             } else {
-                int black = activity.getResources().getColor(android.R.color.black);
-                activity.getWindow().setNavigationBarColor(black);
+                //int black = activity.getResources().getColor(android.R.color.black);
+                activity.getWindow().setNavigationBarColor(ColorUtils.getColorByAttr(activity, R.attr.color_bottom_nav, android.R.color.black));
             }
         }
     }

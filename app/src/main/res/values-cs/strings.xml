@@ -20,8 +20,6 @@
     <string name="nav_item_logs">Podrobné záznamy</string>
     <string name="nav_item_logs_err">Záznamy modulů</string>
     <string name="nav_item_about">O aplikaci</string>
-    <string name="navigation_drawer_open">Otevřít panel navigace</string>
-    <string name="navigation_drawer_close">Zavřít panel navigace</string>
 
     <!-- Installer tab -->
     <string name="install">Instalovat/Aktualizovat</string>
@@ -244,7 +242,6 @@
     <string name="skip_xposedminversion_check">Přeskočit kontrolu modulů</string>
     <string name="skip_xposedminversion_check_summ">Vypne kontrolu minimální verze a stavu pro moduly</string>
 
-    <string name="compatibility">Kompatibilita</string>
     <string name="details">Podrobnosti</string>
     <string name="support_xda">Získat podporu</string>
     <string name="later">Později</string>
