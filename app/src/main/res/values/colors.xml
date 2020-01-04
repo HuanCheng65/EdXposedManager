@@ -6,8 +6,8 @@
     <color name="red_500">#F44336</color>
     <color name="warning">@color/red_500</color>
     <color name="warning_trans">#33F44336</color>
-    <color name="download_status_update_available">@color/darker_green</color>
-    <color name="darker_green">#4CAF50</color>
+    <color name="download_status_update_available">#4CAF50</color>
+    <color name="status_success">#59B4FB</color>
     <color name="amber_A700">#FFAB00</color>
     <color name="amber_A700_trans">#33FFAB00</color>
 

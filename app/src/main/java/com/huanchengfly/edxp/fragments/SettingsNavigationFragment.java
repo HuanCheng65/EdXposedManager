@@ -14,8 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.navigation.NavigationView;
 
 import org.meowcat.edxposed.manager.R;
-
-import de.robv.android.xposed.installer.WelcomeActivity;
+import org.meowcat.edxposed.manager.WelcomeActivity;
 
 public class SettingsNavigationFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
     @SuppressLint("StaticFieldLeak")

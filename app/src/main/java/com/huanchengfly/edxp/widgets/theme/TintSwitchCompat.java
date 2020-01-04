@@ -7,8 +7,7 @@ import android.util.AttributeSet;
 import androidx.appcompat.widget.SwitchCompat;
 
 import org.meowcat.edxposed.manager.R;
-
-import de.robv.android.xposed.installer.XposedApp;
+import org.meowcat.edxposed.manager.XposedApp;
 
 public class TintSwitchCompat extends SwitchCompat {
     public TintSwitchCompat(Context context) {

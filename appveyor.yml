@@ -1,0 +1,18 @@
+version: 1.0.{build}_{branch}
+clone_folder: C:\EdxposedManager
+environment:
+  matrix:
+  - ANDROID_HOME: C:\android-sdk-windows
+install:
+- cmd: >-
+    appveyor DownloadFile https://dl.google.com/android/repository/sdk-tools-windows-3859397.zip
+
+    7z x sdk-tools-windows-3859397.zip -oC:\android-sdk-windows -y
+
+    yes | C:\android-sdk-windows\tools\bin\sdkmanager.bat --licenses > nul
+cache: C:\android-sdk-windows\
+build_script:
+- cmd: gradlew.bat assembleRelease
+artifacts:
+  - path: app/release/app-release.apk
+  name: app-release

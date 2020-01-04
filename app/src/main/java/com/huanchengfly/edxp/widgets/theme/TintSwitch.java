@@ -7,8 +7,7 @@ import android.util.AttributeSet;
 import android.widget.Switch;
 
 import org.meowcat.edxposed.manager.R;
-
-import de.robv.android.xposed.installer.XposedApp;
+import org.meowcat.edxposed.manager.XposedApp;
 
 public class TintSwitch extends Switch {
     public TintSwitch(Context context) {

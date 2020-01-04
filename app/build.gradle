@@ -1,7 +1,55 @@
-//noinspection GradleDependency
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'io.michaelrocks:paranoid-gradle-plugin:0.2.5'
+        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
+    }
+}
+
+apply plugin: 'AndResGuard'
 apply plugin: 'com.android.application'
+apply plugin: 'io.michaelrocks.paranoid'
+
+andResGuard {
+    mappingFile = null
+    use7zip = true
+    useSign = true
+    keepRoot = false
+    mergeDuplicatedRes = true
+    // add <yourpackagename>.R.drawable.icon into whitelist.
+    // because the launcher will get the icon with his name
+    whiteList = ["R.mipmap.*",
+                 "R.id.*"]
+    compressFilePattern = ["*.png",
+                           "*.jpg",
+                           "*.jpeg",
+                           "*.gif",
+                           "resources.arsc"]
+    sevenzip {
+        path = "C:\\EdxposedManager\\app\\7z\\7za.exe"
+    }
+
+    /**
+     * Optional: if finalApkBackupPath is null, AndResGuard will overwrite final apk
+     * to the path which assemble[Task] write to*/
+    finalApkBackupPath = "${project.rootDir}/app/release/app-release.apk"
+    digestalg = "SHA-256"
+}
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'huajikey'
+            keyPassword '2g6-=armrm'
+            storeFile file("C:/Users/xppxu/huanchengfly.jks")
+            storePassword '2g6-=armrm'
+            v2SigningEnabled true
+        }
+    }
+
     compileSdkVersion 28
 
     lintOptions {
@@ -12,14 +60,29 @@ android {
         applicationId "org.meowcat.edxposed.manager"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 45300
-        versionName "4.5.3_Beautified"
+        versionCode 45401
+        versionName "4.5.4_Beautified"
         project.ext.set("archivesBaseName", versionName + "-" + versionCode)
     }
 
     buildTypes {
         release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.config
+            zipAlignEnabled true
+            multiDexEnabled true
+        }
+        debug {
             minifyEnabled false
+            shrinkResources false
+            debuggable true
+            jniDebuggable true
+            zipAlignEnabled true
+            multiDexEnabled true
         }
     }
 
@@ -35,8 +98,8 @@ dependencies {
     implementation "androidx.browser:browser:1.2.0"
     implementation "androidx.preference:preference:1.1.0"
     implementation "androidx.recyclerview:recyclerview:1.2.0-alpha01"
-    implementation "androidx.fragment:fragment:1.2.0-rc04"
-    implementation 'com.google.android.material:material:1.2.0-alpha03'
+    implementation "androidx.fragment:fragment:1.2.0"
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.afollestad.material-dialogs:commons:0.9.0.2'
     implementation 'com.github.mtotschnig:StickyListHeaders:2.7.1'

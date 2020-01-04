@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="de.robv.android.xposed.installer.WelcomeActivity">
+    tools:context="org.meowcat.edxposed.manager.WelcomeActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="de.robv.android.xposed.installer.WelcomeActivity">
+    tools:context=".WelcomeActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
@@ -72,8 +72,8 @@
         android:background="?attr/color_bottom_nav"
         app:elevation="4dp"
         app:itemIconTint="@drawable/bottom_item_icon_tint_list"
-        app:itemTextColor="?attr/colorAccent"
-        app:labelVisibilityMode="unlabeled"
+        app:itemTextColor="@drawable/bottom_item_icon_tint_list"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>
