@@ -10,9 +10,11 @@ install:
     7z x sdk-tools-windows-3859397.zip -oC:\android-sdk-windows -y
 
     yes | C:\android-sdk-windows\tools\bin\sdkmanager.bat --licenses > nul
-cache: C:\android-sdk-windows\
+cache:
+- C:\android-sdk-windows\
+- C:\Users\appveyor\.gradle\wrapper\dists\gradle-5.5-all\
 build_script:
-- cmd: gradlew.bat assembleRelease
+- cmd: gradlew.bat resguardRelease
 artifacts:
 - path: app/release/app-release.apk
   name: app-release
