@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
@@ -383,6 +384,8 @@ public class AdvancedInstallerFragment extends Fragment {
         }
     }
 
+    public static final Handler sHandler = new Handler();
+
     private class TabsAdapter extends FragmentPagerAdapter {
 
         private final ArrayList<String> titles = new ArrayList<>();
@@ -397,6 +400,7 @@ public class AdvancedInstallerFragment extends Fragment {
         void addFragment(String title, Fragment fragment) {
             titles.add(title);
             listFragment.add(fragment);
+            sHandler.post(this::notifyDataSetChanged);
         }
 
         @Override

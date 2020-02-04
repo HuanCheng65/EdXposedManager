@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.preference.ListPreference;
@@ -27,6 +29,8 @@ import androidx.preference.SwitchPreference;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.afollestad.materialdialogs.folderselector.FolderChooserDialog;
+import com.huanchengfly.edxp.interfaces.ButtonCallback;
+import com.topjohnwu.superuser.Shell;
 
 import org.meowcat.edxposed.manager.util.DisplayUtil;
 import org.meowcat.edxposed.manager.util.RepoLoader;
@@ -114,7 +118,6 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
     @SuppressWarnings({"ResultOfMethodCallIgnored", "deprecation"})
     public static class SettingsFragment extends BasePreferenceFragment implements Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-        public static final File mDisableXposedMinverFlag = new File(XposedApp.BASE_DIR + "conf/disablexposedminver");
         final static int[] PRIMARY_COLORS = new int[]{
                 Color.parseColor("#F44336"),
                 Color.parseColor("#E91E63"),
@@ -143,6 +146,9 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
         static final File mBlackWhiteListModeFlag = new File(XposedApp.BASE_DIR + "conf/blackwhitelist");
         static final File mDeoptBootFlag = new File(XposedApp.BASE_DIR + "conf/deoptbootimage");
         static final File mDisableVerboseLogsFlag = new File(XposedApp.BASE_DIR + "conf/disable_verbose_log");
+        static final File mDisableModulesLogsFlag = new File(XposedApp.BASE_DIR + "conf/disable_modules_log");
+        static final File mVerboseLogProcessID = new File(XposedApp.BASE_DIR + "log/all.pid");
+        static final File mModulesLogProcessID = new File(XposedApp.BASE_DIR + "log/error.pid");
         private static final String DIALOG_FRAGMENT_TAG = "list_preference_dialog";
 
         private Preference mClickedPreference;
@@ -154,10 +160,9 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
             Context context = getActivity();
             PackageManager pm = Objects.requireNonNull(getActivity()).getPackageManager();
             String packName = getActivity().getPackageName();
-            String classPackName = "de.robv.android.xposed.installer";
 
             for (String s : iconsValues) {
-                pm.setComponentEnabledSetting(new ComponentName(packName, classPackName + act + s), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+                pm.setComponentEnabledSetting(new ComponentName(packName, packName + act + s), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
             }
 
             act += iconsValues[Integer.parseInt((String) newValue)];
@@ -172,7 +177,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                 getActivity().setTaskDescription(tDesc);
             }
 
-            pm.setComponentEnabledSetting(new ComponentName(Objects.requireNonNull(context), classPackName + act), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+            pm.setComponentEnabledSetting(new ComponentName(Objects.requireNonNull(context), packName + act), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
             return true;
         };
 
@@ -208,13 +213,11 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.prefs);
 
-            File flagFile;
+//            PreferenceGroup groupApp = findPreference("group_app");
+//            PreferenceGroup lookFeel = findPreference("look_and_feel");
 
-            //PreferenceGroup groupApp = findPreference("group_app");
-            //PreferenceGroup lookFeel = findPreference("look_and_feel");
-
-            Preference headsUp = findPreference("heads_up");
-            Preference colors = findPreference("colors");
+            //Preference headsUp = findPreference("heads_up");
+            //Preference colors = findPreference("colors");
             downloadLocation = findPreference("download_location");
             stopVerboseLog = findPreference("stop_verbose_log");
             stopLog = findPreference("stop_log");
@@ -222,29 +225,26 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
             ListPreference customIcon = findPreference("custom_icon");
             navBar = findPreference("nav_bar");
 
-            /*
-            if (Build.VERSION.SDK_INT < 21) {
-                Objects.requireNonNull(groupApp).removePreference(Objects.requireNonNull(headsUp));
-                Objects.requireNonNull(lookFeel).removePreference(navBar);
-            }
-            */
+//            if (Build.VERSION.SDK_INT < 21) {
+//                Objects.requireNonNull(groupApp).removePreference(Objects.requireNonNull(headsUp));
+//                Objects.requireNonNull(groupApp).removePreference(navBar);
+//            }
 
+            //noinspection ConstantConditions
             findPreference("release_type_global").setOnPreferenceChangeListener((preference, newValue) -> {
                 RepoLoader.getInstance().setReleaseTypeGlobal((String) newValue);
                 return true;
             });
 
             SwitchPreference prefWhiteListMode = findPreference("white_list_switch");
-            flagFile = mWhiteListModeFlag;
-            Objects.requireNonNull(prefWhiteListMode).setChecked(flagFile.exists());
-            File finalFlagFile6 = flagFile;
+            Objects.requireNonNull(prefWhiteListMode).setChecked(mWhiteListModeFlag.exists());
             prefWhiteListMode.setOnPreferenceChangeListener((preference, newValue) -> {
                 boolean enabled = (Boolean) newValue;
                 if (enabled) {
                     FileOutputStream fos = null;
                     try {
-                        fos = new FileOutputStream(finalFlagFile6.getPath());
-                        setFilePermissionsFromMode(finalFlagFile6.getPath(), Context.MODE_WORLD_READABLE);
+                        fos = new FileOutputStream(mWhiteListModeFlag.getPath());
+                        setFilePermissionsFromMode(mWhiteListModeFlag.getPath(), Context.MODE_WORLD_READABLE);
                     } catch (FileNotFoundException e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     } finally {
@@ -254,7 +254,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                             } catch (IOException e) {
                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 try {
-                                    finalFlagFile6.createNewFile();
+                                    mWhiteListModeFlag.createNewFile();
                                 } catch (IOException e1) {
                                     Toast.makeText(getActivity(), e1.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -262,22 +262,20 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                         }
                     }
                 } else {
-                    finalFlagFile6.delete();
+                    mWhiteListModeFlag.delete();
                 }
-                return (enabled == finalFlagFile6.exists());
+                return (enabled == mWhiteListModeFlag.exists());
             });
 
             SwitchPreference prefVerboseLogs = findPreference("disable_verbose_log");
-            flagFile = mDisableVerboseLogsFlag;
-            Objects.requireNonNull(prefVerboseLogs).setChecked(flagFile.exists());
-            File finalFlagFile5 = flagFile;
+            Objects.requireNonNull(prefVerboseLogs).setChecked(mDisableVerboseLogsFlag.exists());
             prefVerboseLogs.setOnPreferenceChangeListener((preference, newValue) -> {
                 boolean enabled = (Boolean) newValue;
                 if (enabled) {
                     FileOutputStream fos = null;
                     try {
-                        fos = new FileOutputStream(finalFlagFile5.getPath());
-                        setFilePermissionsFromMode(finalFlagFile5.getPath(), Context.MODE_WORLD_READABLE);
+                        fos = new FileOutputStream(mDisableVerboseLogsFlag.getPath());
+                        setFilePermissionsFromMode(mDisableVerboseLogsFlag.getPath(), Context.MODE_WORLD_READABLE);
                     } catch (FileNotFoundException e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     } finally {
@@ -287,7 +285,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                             } catch (IOException e) {
                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 try {
-                                    finalFlagFile5.createNewFile();
+                                    mDisableVerboseLogsFlag.createNewFile();
                                 } catch (IOException e1) {
                                     Toast.makeText(getActivity(), e1.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -295,22 +293,51 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                         }
                     }
                 } else {
-                    finalFlagFile5.delete();
+                    mDisableVerboseLogsFlag.delete();
                 }
-                return (enabled == finalFlagFile5.exists());
+                return (enabled == mDisableVerboseLogsFlag.exists());
+            });
+
+            SwitchPreference prefModulesLogs = findPreference("disable_modules_log");
+            Objects.requireNonNull(prefModulesLogs).setChecked(mDisableModulesLogsFlag.exists());
+            prefModulesLogs.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean enabled = (Boolean) newValue;
+                if (enabled) {
+                    FileOutputStream fos = null;
+                    try {
+                        fos = new FileOutputStream(mDisableModulesLogsFlag.getPath());
+                        setFilePermissionsFromMode(mDisableModulesLogsFlag.getPath(), Context.MODE_WORLD_READABLE);
+                    } catch (FileNotFoundException e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    } finally {
+                        if (fos != null) {
+                            try {
+                                fos.close();
+                            } catch (IOException e) {
+                                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                try {
+                                    mDisableModulesLogsFlag.createNewFile();
+                                } catch (IOException e1) {
+                                    Toast.makeText(getActivity(), e1.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    mDisableModulesLogsFlag.delete();
+                }
+                return (enabled == mDisableModulesLogsFlag.exists());
             });
 
             SwitchPreference prefBlackWhiteListMode = findPreference("black_white_list_switch");
-            flagFile = mBlackWhiteListModeFlag;
-            Objects.requireNonNull(prefBlackWhiteListMode).setChecked(flagFile.exists());
-            File finalFlagFile4 = flagFile;
+            Objects.requireNonNull(prefBlackWhiteListMode).setChecked(mBlackWhiteListModeFlag.exists());
             prefBlackWhiteListMode.setOnPreferenceChangeListener((preference, newValue) -> {
                 boolean enabled = (Boolean) newValue;
                 if (enabled) {
                     FileOutputStream fos = null;
                     try {
-                        fos = new FileOutputStream(finalFlagFile4.getPath());
-                        setFilePermissionsFromMode(finalFlagFile4.getPath(), Context.MODE_WORLD_READABLE);
+                        fos = new FileOutputStream(mBlackWhiteListModeFlag.getPath());
+                        setFilePermissionsFromMode(mBlackWhiteListModeFlag.getPath(), Context.MODE_WORLD_READABLE);
                     } catch (FileNotFoundException e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     } finally {
@@ -320,7 +347,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                             } catch (IOException e) {
                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 try {
-                                    finalFlagFile4.createNewFile();
+                                    mBlackWhiteListModeFlag.createNewFile();
                                 } catch (IOException e1) {
                                     Toast.makeText(getActivity(), e1.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -328,22 +355,20 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                         }
                     }
                 } else {
-                    finalFlagFile4.delete();
+                    mBlackWhiteListModeFlag.delete();
                 }
-                return (enabled == finalFlagFile4.exists());
+                return (enabled == mBlackWhiteListModeFlag.exists());
             });
 
             SwitchPreference prefEnableDeopt = findPreference("enable_boot_image_deopt");
-            flagFile = mDeoptBootFlag;
-            Objects.requireNonNull(prefEnableDeopt).setChecked(flagFile.exists());
-            File finalFlagFile3 = flagFile;
+            Objects.requireNonNull(prefEnableDeopt).setChecked(mDeoptBootFlag.exists());
             prefEnableDeopt.setOnPreferenceChangeListener((preference, newValue) -> {
                 boolean enabled = (Boolean) newValue;
                 if (enabled) {
                     FileOutputStream fos = null;
                     try {
-                        fos = new FileOutputStream(finalFlagFile3.getPath());
-                        setFilePermissionsFromMode(finalFlagFile3.getPath(), Context.MODE_WORLD_READABLE);
+                        fos = new FileOutputStream(mDeoptBootFlag.getPath());
+                        setFilePermissionsFromMode(mDeoptBootFlag.getPath(), Context.MODE_WORLD_READABLE);
                     } catch (FileNotFoundException e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     } finally {
@@ -353,7 +378,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                             } catch (IOException e) {
                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 try {
-                                    finalFlagFile3.createNewFile();
+                                    mDeoptBootFlag.createNewFile();
                                 } catch (IOException e1) {
                                     Toast.makeText(getActivity(), e1.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -361,55 +386,20 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                         }
                     }
                 } else {
-                    finalFlagFile3.delete();
+                    mDeoptBootFlag.delete();
                 }
-                return (enabled == finalFlagFile3.exists());
-            });
-
-            SwitchPreference prefMinVerResources = findPreference("skip_xposedminversion_check");
-            flagFile = mDisableXposedMinverFlag;
-            Objects.requireNonNull(prefMinVerResources).setChecked(flagFile.exists());
-            File finalFlagFile2 = flagFile;
-            prefMinVerResources.setOnPreferenceChangeListener((preference, newValue) -> {
-                boolean enabled = (Boolean) newValue;
-                if (enabled) {
-                    FileOutputStream fos = null;
-                    try {
-                        fos = new FileOutputStream(finalFlagFile2.getPath());
-                        setFilePermissionsFromMode(finalFlagFile2.getPath(), Context.MODE_WORLD_READABLE);
-                    } catch (FileNotFoundException e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    } finally {
-                        if (fos != null) {
-                            try {
-                                fos.close();
-                            } catch (IOException e) {
-                                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                try {
-                                    finalFlagFile2.createNewFile();
-                                } catch (IOException e1) {
-                                    Toast.makeText(getActivity(), e1.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    finalFlagFile2.delete();
-                }
-                return (enabled == finalFlagFile2.exists());
+                return (enabled == mDeoptBootFlag.exists());
             });
 
             SwitchPreference prefDynamicResources = findPreference("is_dynamic_modules");
-            flagFile = mDynamicModulesFlag;
-            Objects.requireNonNull(prefDynamicResources).setChecked(flagFile.exists());
-            File finalFlagFile1 = flagFile;
+            Objects.requireNonNull(prefDynamicResources).setChecked(mDynamicModulesFlag.exists());
             prefDynamicResources.setOnPreferenceChangeListener((preference, newValue) -> {
                 boolean enabled = (Boolean) newValue;
                 if (enabled) {
                     FileOutputStream fos = null;
                     try {
-                        fos = new FileOutputStream(finalFlagFile1.getPath());
-                        setFilePermissionsFromMode(finalFlagFile1.getPath(), Context.MODE_WORLD_READABLE);
+                        fos = new FileOutputStream(mDynamicModulesFlag.getPath());
+                        setFilePermissionsFromMode(mDynamicModulesFlag.getPath(), Context.MODE_WORLD_READABLE);
                     } catch (FileNotFoundException e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     } finally {
@@ -419,7 +409,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                             } catch (IOException e) {
                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 try {
-                                    finalFlagFile1.createNewFile();
+                                    mDynamicModulesFlag.createNewFile();
                                 } catch (IOException e1) {
                                     Toast.makeText(getActivity(), e1.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -427,22 +417,20 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                         }
                     }
                 } else {
-                    finalFlagFile1.delete();
+                    mDynamicModulesFlag.delete();
                 }
-                return (enabled == finalFlagFile1.exists());
+                return (enabled == mDynamicModulesFlag.exists());
             });
 
             SwitchPreference prefDisableResources = findPreference("disable_resources");
-            flagFile = mDisableResourcesFlag;
-            Objects.requireNonNull(prefDisableResources).setChecked(flagFile.exists());
-            File finalFlagFile = flagFile;
+            Objects.requireNonNull(prefDisableResources).setChecked(mDisableResourcesFlag.exists());
             prefDisableResources.setOnPreferenceChangeListener((preference, newValue) -> {
                 boolean enabled = (Boolean) newValue;
                 if (enabled) {
                     FileOutputStream fos = null;
                     try {
-                        fos = new FileOutputStream(finalFlagFile.getPath());
-                        setFilePermissionsFromMode(finalFlagFile.getPath(), Context.MODE_WORLD_READABLE);
+                        fos = new FileOutputStream(mDisableResourcesFlag.getPath());
+                        setFilePermissionsFromMode(mDisableResourcesFlag.getPath(), Context.MODE_WORLD_READABLE);
                     } catch (FileNotFoundException e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     } finally {
@@ -452,7 +440,7 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                             } catch (IOException e) {
                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 try {
-                                    finalFlagFile.createNewFile();
+                                    mDisableResourcesFlag.createNewFile();
                                 } catch (IOException e1) {
                                     Toast.makeText(getActivity(), e1.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -460,9 +448,9 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                         }
                     }
                 } else {
-                    finalFlagFile.delete();
+                    mDisableResourcesFlag.delete();
                 }
-                return (enabled == finalFlagFile.exists());
+                return (enabled == mDisableResourcesFlag.exists());
             });
 
             //Objects.requireNonNull(colors).setOnPreferenceClickListener(this);
@@ -497,13 +485,12 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
             SettingsActivity act = (SettingsActivity) getActivity();
             if (act == null)
                 return false;
-
             if (preference.getKey().equals("colors")) {
                 new ColorChooserDialog.Builder(act, R.string.choose_color)
                         .backButton(R.string.back)
-                        .allowUserColorInput(true)
+                        .allowUserColorInput(false)
                         .customColors(PRIMARY_COLORS, null)
-                        .doneButton(android.R.string.ok)
+                        .doneButton(R.string.ok)
                         .preselect(XposedApp.getColor(act)).show();
             } else if (preference.getKey().equals(downloadLocation.getKey())) {
                 if (checkPermissions()) {
@@ -515,39 +502,36 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                         .cancelButton(android.R.string.cancel)
                         .initialPath(XposedApp.getDownloadPath())
                         .show();
+            } else if (preference.getKey().equals(stopVerboseLog.getKey())) {
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        areYouSure(R.string.stop_verbose_log_summary, new ButtonCallback() {
+                            @Override
+                            public void onPositive(DialogInterface dialog) {
+                                super.onPositive(dialog);
+                                Shell.su("kill $(cat " + mVerboseLogProcessID.getAbsolutePath() + ")").exec();
+                            }
+                        });
+                    }
+                };
+            } else if (preference.getKey().equals(stopLog.getKey())) {
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        areYouSure(R.string.stop_log_summary, new ButtonCallback() {
+                            @Override
+                            public void onPositive(DialogInterface dialog) {
+                                super.onPositive(dialog);
+                                Shell.su("kill $(cat " + mModulesLogProcessID.getAbsolutePath() + ")").exec();
+                            }
+                        });
+                    }
+                };
             }
-//          } else if (preference.getKey().equals(stopVerboseLog.getKey())) {
-//                new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        areYouSure(R.string.install_warning, new MaterialDialog.ButtonCallback() {
-//                            @Override
-//                            public void onPositive(MaterialDialog dialog) {
-//                                super.onPositive(dialog);
-//                                Shell.su("pkill -f EdXposed:V").exec();
-//                            }
-//                        });
-//                    }
-//                };
-//            } else if (preference.getKey().equals(stopLog.getKey())) {
-//                new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        areYouSure(R.string.install_warning, new MaterialDialog.ButtonCallback() {
-//                            @Override
-//                            public void onPositive(MaterialDialog dialog) {
-//                                super.onPositive(dialog);
-//                                Shell.su("pkill -f EdXposed-Bridge:V").exec();
-//                            }
-//                        });
-//                    }
-//                };
-//            }
-
             return true;
         }
 
-        /*
         private void areYouSure(int contentTextId, ButtonCallback yesHandler) {
             new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
                     .setTitle(R.string.areyousure)
@@ -557,7 +541,6 @@ public class SettingsActivity extends XposedBaseActivity implements ColorChooser
                     .setNegativeButton(android.R.string.no, (dialog, which) -> yesHandler.onNegative(dialog))
                     .show();
         }
-        */
 
         private boolean checkPermissions() {
             if (Build.VERSION.SDK_INT < 23) return false;

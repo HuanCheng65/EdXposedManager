@@ -30,6 +30,8 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    tools:backgroundTint="@color/red_500"
+                    android:background="@drawable/bg_radius_8dp"
                     android:id="@+id/status_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -38,6 +40,8 @@
                     android:padding="16dp">
 
                     <ImageView
+                        android:tint="?android:colorBackground"
+                        tools:src="@drawable/ic_error"
                         android:id="@+id/status_icon"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
@@ -55,7 +59,8 @@
                         android:layout_toEndOf="@id/status_icon"
                         android:gravity="start|center_vertical"
                         android:padding="6dp"
-                        android:textColor="@color/white"
+                        android:textColor="?android:colorBackground"
+                        tools:text="未安装"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
@@ -114,13 +119,16 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            app:contentPadding="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:id="@+id/errorCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:visibility="gone"
-            app:cardBackgroundColor="?attr/list_download_item_color"
-            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardBackgroundColor="@color/red_500_trans"
+            app:cardCornerRadius="8dp"
             app:cardElevation="@dimen/card_elevation"
             app:cardUseCompatPadding="true">
 
@@ -138,8 +146,7 @@
                     android:layout_height="@dimen/icon_size"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_signal_cellular_connected_no_internet_4_bar"
-                    android:tint="?attr/color_icon"
-                    android:visibility="gone"
+                    android:tint="@color/red_500"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -153,7 +160,7 @@
                     android:padding="6dp"
                     android:text="@string/loadingError"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:visibility="gone" />
+                    android:textColor="@color/red_500" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

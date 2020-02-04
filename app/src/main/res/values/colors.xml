@@ -4,12 +4,13 @@
     <color name="colorPrimaryDark">#1976d2</color>
     <color name="colorAccent">#448aff</color>
     <color name="red_500">#F44336</color>
+    <color name="red_500_trans">#33F44336</color>
     <color name="warning">@color/red_500</color>
-    <color name="warning_trans">#33F44336</color>
+    <color name="warning_trans">@color/red_500_trans</color>
     <color name="download_status_update_available">#4CAF50</color>
     <color name="status_success">#59B4FB</color>
     <color name="amber_A700">#FFAB00</color>
-    <color name="amber_A700_trans">#33FFAB00</color>
+    <color name="amber_A700_trans">#32FFAB00</color>
 
     <color name="color_switch_track_bg">#969696</color>
     <color name="color_switch_track_disabled_bg">#C4C4C4</color>
