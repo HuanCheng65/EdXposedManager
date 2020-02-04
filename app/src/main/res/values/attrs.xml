@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <attr name="background_card" format="reference" />
     <attr name="background_card_pressed" format="reference" />
     <attr name="pager_tab_strip_bg" format="reference" />
@@ -8,6 +7,15 @@
     <attr name="download_status_installed" format="reference|color" />
     <attr name="sticky_header_background" format="reference|color" />
     <attr name="list_download_item_color" format="reference|color" />
+
+    <declare-styleable name="ShadowLayout">
+        <attr name="shadow_layout_color" format="color" />
+        <attr name="shadow_layout_background_color" format="color" />
+        <attr name="shadow_layout_offsetX" format="dimension" />
+        <attr name="shadow_layout_offsetY" format="dimension" />
+        <attr name="shadow_layout_blur" format="dimension" />
+        <attr name="shadow_layout_radius" format="dimension" />
+    </declare-styleable>
 
     <declare-styleable name="Theme">
         <attr name="color_app_bar" format="color" />
@@ -17,6 +25,7 @@
         <attr name="color_icon" format="color" />
         <attr name="color_card" format="color" />
         <attr name="color_divider" format="color" />
+        <attr name="color_shadow" format="color" />
     </declare-styleable>
 
     <declare-styleable name="IconListPreference">

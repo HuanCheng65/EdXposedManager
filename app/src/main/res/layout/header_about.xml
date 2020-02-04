@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentStart="true"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/logo"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/app_name_beautified"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+    </LinearLayout>
+
+    <com.huanchengfly.edxp.widgets.ShadowLayout
+        android:layout_below="@+id/logo"
+        android:id="@+id/header_update_tip_shadow"
+        android:visibility="gone"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        app:shadow_layout_color="?color_shadow"
+        app:shadow_layout_blur="8dp"
+        app:shadow_layout_radius="8dp"
+        app:shadow_layout_offsetY="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            app:cardElevation="0dp"
+            app:cardCornerRadius="8dp"
+            app:contentPadding="16dp"
+            app:strokeWidth="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/header_update_tip_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:tint="?colorPrimary"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_ribbon"
+                        android:id="@+id/header_update_tip_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:textColor="?colorPrimary"
+                        tools:text="更新 · 正式版"
+                        android:id="@+id/header_update_tip_header_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_toEndOf="@id/header_update_tip_icon"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/header_update_tip_content_holder"
+                    android:layout_below="@id/header_update_tip_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textSize="16sp"
+                        tools:text="发现新版 3.6.0.1"
+                        android:textColor="?android:textColorPrimary"
+                        android:textStyle="bold"
+                        android:id="@+id/header_update_tip_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:lineSpacingMultiplier="1.2"
+                        android:layout_marginTop="4dp"
+                        android:textSize="14sp"
+                        tools:text="这里是更新内容"
+                        android:textColor="?android:textColorSecondary"
+                        android:id="@+id/header_update_tip_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Button.Flat.Dense"
+                    android:id="@+id/header_update_tip_button_dismiss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header_update_tip_content_holder"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toStartOf="@id/header_update_tip_button_download"
+                    android:text="@string/button_next_time" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Button.Dense"
+                    android:id="@+id/header_update_tip_button_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header_update_tip_content_holder"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/tabDownload" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </com.huanchengfly.edxp.widgets.ShadowLayout>
+</RelativeLayout>

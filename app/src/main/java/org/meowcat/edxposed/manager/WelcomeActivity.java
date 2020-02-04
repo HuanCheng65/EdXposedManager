@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.huanchengfly.edxp.AboutActivity;
 import com.huanchengfly.edxp.fragments.SettingsNavigationFragment;
 
 import org.meowcat.edxposed.manager.util.ModuleUtil;

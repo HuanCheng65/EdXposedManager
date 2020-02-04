@@ -11,6 +11,8 @@
     <color name="status_success">#59B4FB</color>
     <color name="amber_A700">#FFAB00</color>
     <color name="amber_A700_trans">#32FFAB00</color>
+    <color name="color_shadow">#FEE9E9E9</color>
+    <color name="color_shadow_night">#FE191919</color>
 
     <color name="color_switch_track_bg">#969696</color>
     <color name="color_switch_track_disabled_bg">#C4C4C4</color>
@@ -55,4 +57,5 @@
     <color name="color_text_light">#FF31343C</color>
     <color name="color_text_secondary_light">#FF545967</color>
     <color name="color_text_dark">#FFE6E7EE</color>
+    <color name="color_place_holder">#F0F0F0</color>
 </resources>

@@ -398,5 +398,25 @@
     <string name="wearefun_coolapk" translatable="false">http://www.coolapk.com/u/475044</string>
     <string name="wearefun_summary">The design guide of the beautify interface</string>
     <string name="about_beautify_version_label">Beautify Version</string>
-    <string name="beautify_version" translatable="false">0.0.4</string>
+    <string name="beautify_version" translatable="false">0.0.7</string>
+    <string name="open_origin_about">Open original about page</string>
+    <string name="app_name_beautified">Edxposed Beautified</string>
+    <string name="source_url_beautified">https://github.com/HuanCheng65/EdxposedManager</string>
+    <string name="toast_open_error">Failed to open.</string>
+    <string name="support">Support</string>
+
+    <string name="support_group_qq_number" translatable="false">855219808</string>
+    <string name="support_group_telegram_name" translatable="false">\@Code_of_MeowCat</string>
+    <string name="support_group_telegram_channel_name">\@EdXposed</string>
+
+    <string name="support_group_qq_label">QQ Group</string>
+    <string name="support_group_telegram_label">Telegram Group</string>
+    <string name="support_group_telegram_channel_label">Telegram Channel</string>
+    <string name="button_next_time">Next time</string>
+    <string name="button_go_to_download">Download</string>
+    <string name="button_check_update">Check Update</string>
+    <string name="update_tip_header">Update</string>
+    <string name="update_tip_no_title">Your version is already up to date</string>
+    <string name="update_tip_no_content">Click the button below to recheck for updates</string>
+    <string name="update_tip_title">A new version %1$s(%2$s) is available</string>
 </resources>

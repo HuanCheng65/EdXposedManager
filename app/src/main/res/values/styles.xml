@@ -51,6 +51,7 @@
     </style>
 
     <style name="Theme.XposedInstaller.Light" parent="Theme.XposedInstaller.Light.Base">
+        <item name="color_shadow">@color/color_shadow</item>
         <item name="color_card">@color/card_background_light</item>
         <item name="color_divider">#FFF0F3F5</item>
         <item name="android:statusBarColor">?attr/color_app_bar</item>
@@ -78,6 +79,7 @@
     </style>
 
     <style name="Theme.XposedInstaller.Dark" parent="Theme.XposedInstaller.Dark.Base">
+        <item name="color_shadow">@color/color_shadow_night</item>
         <item name="color_card">@color/card_background_dark</item>
         <item name="color_divider">#FF10171D</item>
         <item name="android:statusBarColor">?attr/color_app_bar</item>

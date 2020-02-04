@@ -361,5 +361,18 @@
     <string name="wearefun_summary">UI 设计指导</string>
     <string name="huanchengfly">幻了个城fly</string>
     <string name="about_beautify_version_label">美化版本</string>
+    <string name="open_origin_about">打开原关于页面</string>
+    <string name="toast_open_error">打开失败</string>
+    <string name="support">支持</string>
 
+    <string name="support_group_qq_label">QQ 群组</string>
+    <string name="support_group_telegram_label">Telegram 群组</string>
+    <string name="support_group_telegram_channel_label">Telegram 频道</string>
+    <string name="button_next_time">下次再说</string>
+    <string name="button_go_to_download">去下载</string>
+    <string name="button_check_update">检查更新</string>
+    <string name="update_tip_header">更新</string>
+    <string name="update_tip_no_title">当前版本已是最新</string>
+    <string name="update_tip_no_content">轻按下方按钮来重新检查更新</string>
+    <string name="update_tip_title">惊现新版本 %1$s(%2$s)</string>
 </resources>

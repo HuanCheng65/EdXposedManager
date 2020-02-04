@@ -195,6 +195,7 @@
         </activity>
         <activity android:name=".AboutActivity" />
         <activity android:name=".ModulesBookmark" />
+        <activity android:name="com.huanchengfly.edxp.AboutActivity" />
 
         <receiver
             android:name=".receivers.PackageChangeReceiver"
