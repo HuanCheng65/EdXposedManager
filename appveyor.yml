@@ -1,4 +1,4 @@
-version: 1.0.{build}_{branch}
+version: 4.5.4_0.0.{build}
 clone_folder: C:\EdxposedManager
 environment:
   matrix:
@@ -18,3 +18,12 @@ build_script:
 artifacts:
 - path: app/release/app-release.apk
   name: app-release
+deploy:
+- provider: GitHub
+  tag: 4.5.4
+  release: ${APPVEYOR_BUILD_VERSION}
+  auth_token:
+    secure: 0UuPlW4qgQ7hyjmpnYqeVkRId3Ijnwol3AcL84Wb1zKWxhDNmfo2TmoowjyM/vUA
+  artifact: app-release
+  prerelease: true
+  force_update: false
