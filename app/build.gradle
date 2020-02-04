@@ -42,10 +42,10 @@ andResGuard {
 android {
     signingConfigs {
         config {
-            keyAlias 'huajikey'
-            keyPassword '2g6-=armrm'
-            storeFile file("C:/Users/xppxu/huanchengfly.jks")
-            storePassword '2g6-=armrm'
+            keyAlias 'androiddebugkey'
+            keyPassword '123456789a'
+            storeFile file('C:/EdxposedManager/app/testkey.jks')
+            storePassword 'android'
             v2SigningEnabled true
         }
     }
