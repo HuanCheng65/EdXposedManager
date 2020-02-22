@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
     <application
-        android:name="org.meowcat.bugcatcher.MeowCatApplication"
+        android:name="com.huanchengfly.edxp.MyApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,7 +38,7 @@
         </activity>
 
         <activity-alias
-            android:name=".WelcomeActivityMlgmXyysd"
+            android:name="org.meowcat.edxposed.manager.WelcomeActivityMlgmXyysd"
             android:enabled="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -55,7 +55,7 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
         <activity-alias
-            android:name=".WelcomeActivityDVDAndroid"
+            android:name="org.meowcat.edxposed.manager.WelcomeActivityDVDAndroid"
             android:enabled="false"
             android:icon="@mipmap/ic_launcher_dvdandroid"
             android:label="@string/app_name"
@@ -72,7 +72,7 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
         <activity-alias
-            android:name=".WelcomeActivityHjmodi"
+            android:name="org.meowcat.edxposed.manager.WelcomeActivityHjmodi"
             android:enabled="false"
             android:icon="@mipmap/ic_launcher_hjmodi"
             android:label="@string/app_name"
@@ -89,7 +89,7 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
         <activity-alias
-            android:name=".WelcomeActivityRovo"
+            android:name="org.meowcat.edxposed.manager.WelcomeActivityRovo"
             android:enabled="false"
             android:icon="@mipmap/ic_launcher_rovo"
             android:label="@string/app_name"
@@ -106,7 +106,7 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
         <activity-alias
-            android:name=".WelcomeActivityCornie"
+            android:name="org.meowcat.edxposed.manager.WelcomeActivityCornie"
             android:enabled="false"
             android:icon="@mipmap/ic_launcher_cornie"
             android:label="@string/app_name"
@@ -122,7 +122,7 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
         <activity-alias
-            android:name="de.robv.android.xposed.installer.WelcomeActivityRovoOld"
+            android:name="org.meowcat.edxposed.manager.WelcomeActivityRovoOld"
             android:enabled="false"
             android:icon="@mipmap/ic_launcher_rovo_old"
             android:label="@string/app_name"
@@ -138,7 +138,7 @@
                 android:resource="@xml/shortcuts" />
         </activity-alias>
         <activity-alias
-            android:name=".WelcomeActivityStaol"
+            android:name="org.meowcat.edxposed.manager.WelcomeActivityStaol"
             android:enabled="false"
             android:icon="@mipmap/ic_launcher_staol"
             android:label="@string/app_name"

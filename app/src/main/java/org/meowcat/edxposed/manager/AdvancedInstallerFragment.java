@@ -64,14 +64,16 @@ public class AdvancedInstallerFragment extends Fragment {
         mTabLayout = view.findViewById(R.id.tab_layout);
 
         tabsAdapter = new TabsAdapter(getChildFragmentManager());
-        tabsAdapter.notifyDataSetChanged();
         mPager.setAdapter(tabsAdapter);
+        tabsAdapter.notifyDataSetChanged();
         mTabLayout.setupWithViewPager(mPager);
 
         mTabLayout.setElevation(0);
 
         setHasOptionsMenu(true);
-        new JSONParser().execute();
+        sHandler.postDelayed(() -> {
+            new JSONParser().execute();
+        }, 100);
 
         if (!XposedApp.getPreferences().getBoolean("hide_install_warning", false)) {
             @SuppressLint("InflateParams") final View dontShowAgainView = inflater.inflate(R.layout.dialog_install_warning, null);
@@ -334,6 +336,7 @@ public class AdvancedInstallerFragment extends Fragment {
 
                 for (XposedTab tab : tabs) {
                     tabsAdapter.addFragment(tab.name, BaseAdvancedInstaller.newInstance(tab));
+                    sHandler.post(tabsAdapter::notifyDataSetChanged);
                 }
 
                 newApkVersion = xposedJson.apk.version;

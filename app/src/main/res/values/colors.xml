@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- base colors-->
-    <color name="colorPrimary">#2196f3</color>
+    <color name="colorPrimary">#448aff</color>
     <color name="colorPrimaryDark">#1976d2</color>
     <color name="colorAccent">#448aff</color>
     <color name="red_500">#F44336</color>

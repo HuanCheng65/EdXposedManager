@@ -66,7 +66,7 @@ public class AboutActivity extends XposedBaseActivity implements View.OnClickLis
         dismissBtn = headerView.findViewById(R.id.header_update_tip_button_dismiss);
         downloadBtn.setOnClickListener(this);
         dismissBtn.setOnClickListener(this);
-        int colorIcon = XposedApp.getColorByAttr(this, R.attr.colorAccent, R.color.colorAccent);
+        int colorIcon = XposedApp.getColor(this);
         mAboutPage = new AboutPage(this)
                 .setHeaderView(headerView)
                 .addItem(new AboutPage.Item(getString(R.string.about_version_label), VersionUtil.getVersionName(this) + "_" + Config.VERSION_NAME, R.drawable.ic_two_tone_info, colorIcon)
