@@ -14,9 +14,11 @@
             android:title="@string/custom_icon"
             app:icons="@array/iconsDrawables" />
 
+        <!--
         <Preference
             android:key="colors"
             android:title="@string/choose_color" />
+        -->
 
         <SwitchPreference
             android:defaultValue="false"
